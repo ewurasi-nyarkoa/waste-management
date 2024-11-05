@@ -1,21 +1,53 @@
 
 import './App.css'
-import NewsArticles from './pages/blogs/BlogsPage'
-import TrashCanPlacement from './pages/customerDashboard/TrashCanPickup'
-import HeroSection from './pages/landingPage/Hero'
-import AboutSection from './pages/landingPage/InfoPage'
-import WasteManagementSection from './pages/landingPage/WasteSection'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import LoginPage from './pages/SigninPage/SignIn'
 import SignupPage from './pages/signupPage/Signup'
+import LandingLayout from './layout/LandingLayout'
+import CustDushboardLayout from './layout/CustDushboardLayout'
+import BlogsPage from './pages/blogs/BlogsPage'
+
 
 
 function App() {
  
+  const router = createBrowserRouter([
+    {
+      path: "/signin",
+      element: <LoginPage />
+    },
+    {
+      path: "/signup",
+      element: <SignupPage/>
+    },
+    {
+      path: "/",
+      element: <LandingLayout />
+    },
+     {
+      path:"/customerDashboard",
+      element:<CustDushboardLayout/>,
+      children:[
+      //  { index: true,
+      //   element:<VendorView />,
+      //  }
+      {
+      path: "blogs",
+      element: <BlogsPage />
+      },
+      ]
+    },
 
+    // {path:"/editform/:id",
+    //   element:<EditProductForm/>
+    // },
+  
+    // {path:"/single/:advertid",
+    //   element:<SingleProduct/>
+    // },
+  ])
   return (
-    <>
-<NewsArticles />
-    </>
+    <RouterProvider router={router} />
   )
 }
 

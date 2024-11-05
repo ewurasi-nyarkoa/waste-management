@@ -1,5 +1,8 @@
 import React from 'react';
-
+import {Link } from 'react-router-dom';
+import image8 from '../../assets/images/image8.png'
+import image7 from '../../assets/images/image7.png'
+import image6 from '../../assets/images/image6.png'
 const WasteManagementSection = () => {
   return (
     <div className="bg-gray-100 py-12">
@@ -23,7 +26,7 @@ const WasteManagementSection = () => {
 
         <div className="grid md:grid-cols-3 gap-6 mt-[5%] h-[70%]">
           <div className="bg-white rounded-lg shadow-lg overflow-hidden p-6 h-[100%] transition-transform transform hover:-translate-y-2 hover:shadow-2xl duration-300">
-            <img src="src/assets/images/image6.png" alt="Waste Collection" className="w-full h-40 object-cover" />
+            <img src={image6} alt="Waste Collection" className="w-full h-40 object-cover" />
             <h3 className="text-xl font-bold text-green-800 mt-4">Waste Collection</h3>
             <p className="text-gray-700 mt-2">
               Using meticulous collection strategies, we efficiently gather wastes, transport them to designated facilities for sorting and transfer and recycling.
@@ -34,7 +37,7 @@ const WasteManagementSection = () => {
           </div>
 
           <div className="bg-white rounded-lg shadow-lg overflow-hidden p-6 h-[100%] transition-transform transform hover:-translate-y-2 hover:shadow-2xl duration-300">
-            <img src="src/assets/images/image7.png" alt="Composting & Recycling" className="w-full h-40 object-cover" />
+            <img src={image7} alt="Composting & Recycling" className="w-full h-40 object-cover" />
             <h3 className="text-xl font-bold text-green-800 mt-4">Composting & Recycling</h3>
             <p className="text-gray-700 mt-2">
               Our Integrated Waste Processing and Recycling Plant receives, sorts, processes, and recycles solid waste and produces organic compost for agronomic purposes in Ghana and West Africa.
@@ -44,16 +47,19 @@ const WasteManagementSection = () => {
             </a>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden p-6 h-[100%] transition-transform transform hover:-translate-y-2 hover:shadow-2xl duration-300">
-            <img src="src/assets/images/image8.png" alt="Landfill Management" className="w-full h-40 object-cover" />
-            <h3 className="text-xl font-bold text-green-800 mt-4">Landfill Management</h3>
-            <p className="text-gray-700 mt-2">
-              We possess the appropriate technologies to effectively manage and decommission waste landfills.
-            </p>
-            <a href="#landfill-management" className="text-green-800 font-semibold mt-4 inline-block underline">
-              Explore Landfill Management »
-            </a>
-          </div>
+          <Link to="/customerDashboard/blogs" className="block">
+      <div className="bg-white rounded-lg shadow-lg overflow-hidden p-6 h-[100%] transition-transform transform hover:-translate-y-2 hover:shadow-2xl duration-300">
+        <img
+          src={image8}
+          alt="Landfill Management"
+          className="w-full h-40 object-cover"
+        />
+        <h3 className="text-xl font-bold text-green-800 mt-4">Blogs</h3>
+        <p className="text-gray-700 mt-2">
+          We possess the appropriate technologies to effectively manage and decommission waste landfills.
+        </p>
+      </div>
+    </Link>
         </div>
       </div>
     </div>
