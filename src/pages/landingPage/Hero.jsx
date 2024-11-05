@@ -1,9 +1,10 @@
 import React from 'react';
+import image4 from '../../assets/images/image4.png'
 
 const HeroSection = () => {
   return (
     <div className="relative h-screen bg-cover bg-center" 
-         style={{ backgroundImage: "url(../src/assets/images/image4.png)" }}>
+    style={{ backgroundImage: `url(${image4})` }}>
       
       <div className="absolute inset-0 bg-black opacity-50"></div>
 
