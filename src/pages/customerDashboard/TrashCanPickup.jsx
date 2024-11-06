@@ -1,12 +1,13 @@
 import React from 'react';
+import image9 from '../../assets/images/image9.png'
 
 const TrashCanPlacement = () => {
   return (
     <section className="bg-white py-10 px-5 text-center">
-      <h2 className="text-lg text-blue-800 font-semibold uppercase">
+      {/* <h2 className="text-lg text-green-700 font-semibold uppercase">
         Waste Connections
-      </h2>
-      <h1 className="text-4xl font-bold text-blue-900 my-4">
+      </h2> */}
+      <h1 className="text-4xl font-bold text-green-700 my-4">
         The Placement of Your Trash Can Matters
       </h1>
       <p className="text-lg text-gray-700 max-w-3xl mx-auto mb-6">
@@ -22,7 +23,7 @@ const TrashCanPlacement = () => {
      
       <div className="mt-10">
         <img
-          src="src\assets\images\image9.png" 
+          src={image9} 
           alt="Trash Can Placement Guide"
           className="mx-auto"
         />

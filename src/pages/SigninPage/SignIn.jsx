@@ -1,9 +1,37 @@
 import { IoEarthOutline } from "react-icons/io5"; 
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
+import { apiLogin } from '../../services/Auth';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import image1 from 'assets/images/signinimg.png';
 
-function LoginPage() {
+const LoginPage =() => {
+  const navigate = useNavigate()
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+const email = formData.get("email");
+const password = formData.get("password");
+console.log(email)
+ 
+const response = await apiLogin({email, password});
+// console.log(response.data);
+if(response.status===200){
+  localStorage.setItem("token", response.data.accessToken);
+ 
+  //get user profile
+    navigate ("/Land")
+ 
+  //console.log( response.data)
+
+  
+
+}
+
+  };
   return (
     <div className="flex min-h-screen relative flex-col md:flex-row">
      
@@ -28,13 +56,15 @@ function LoginPage() {
         <h1 className="text-2xl font-bold mb-2">WASTEY</h1>
         <p className="text-lg mb-6">Login to the Portal</p>
         
-        <form className="p-8 rounded-lg w-full max-w-sm">
+        <form  onSubmit={handleSubmit}
+        className="p-8 rounded-lg w-full max-w-sm">
           <div className="mb-4">
             <div className="flex items-center bg-gray-100 rounded-md p-2">
               <AiOutlineMail className="text-gray-500 h-5 w-5 mr-2" />
               <input
                 type="email"
                 placeholder="Email"
+                name= "email"
                 className="bg-gray-100 w-full focus:outline-none px-2 text-gray-700"
               />
             </div>
@@ -46,9 +76,16 @@ function LoginPage() {
               <input
                 type="password"
                 placeholder="Password"
+                name= "password"
                 className="bg-gray-100 w-full focus:outline-none px-2 text-gray-700"
               />
             </div>
+            <button
+            type="submit"
+            className="w-full py-3 bg-green-600 text-white font-semibold rounded hover:bg-green-700 transition duration-200 mt-4"
+          >
+            Signin
+          </button>
           </div>
           <div className="absolute bottom-[37rem] right-20 w-8 h-8 rounded-full bg-white"></div>
           <div className="text-center text-gray-500 mt-4">OR</div>
@@ -63,7 +100,8 @@ function LoginPage() {
           </div>
 
           <p className="mt-4 text-center text-sm">
-            Not a user yet? <a href="#" className="text-green-500">SignUp</a>
+            Not a user yet? 
+            <Link to="/signup" className="text-green-500">SignUp </Link>
           </p>
         </form>
         

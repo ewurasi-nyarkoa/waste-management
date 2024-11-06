@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaCommentDots, FaInfoCircle } from 'react-icons/fa';
 import ChatForm from '../../components/ContactUsForm'; 
 import image5 from '../../assets/images/image5.png'
+import { Link } from 'react-router-dom';
 const AboutSection = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
@@ -39,9 +40,11 @@ const AboutSection = () => {
           <strong className="text-green-700 dark:text-white">5 million satisfied customers</strong>, we take immense
           pride in our commitment to excellence.
         </p>   
-         <button className="flex items-center mt-8 px-6 py-3 bg-green-700 text-white rounded-lg shadow-md hover:bg-green-800">
-          <FaInfoCircle className="mr-2" /> More About Us
-        </button> 
+        <Link to="/who-we-are">  
+      <button className="flex items-center mt-8 px-6 py-3 bg-green-700 text-white rounded-lg shadow-md hover:bg-green-800">
+        <FaInfoCircle className="mr-2" /> More About Us
+      </button>
+    </Link>
 
         
         {!isChatOpen && (
