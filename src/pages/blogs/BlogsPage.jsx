@@ -18,10 +18,19 @@ const BlogsPage = () => {
         },
       });
 
-      setArticles(response.data.articles);
+      
+      console.log('GNews response:', response.data);
+
+      // Ensure that response.data.articles is an array
+      if (Array.isArray(response.data.articles)) {
+        setArticles(response.data.articles);
+      } else {
+        setError('Invalid articles data format.');
+      }
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching GNews articles:', error);
+      // Log more detailed error information
+      console.error('Error fetching GNews articles:', error.response || error.message || error);
       setError('Failed to fetch news articles.');
       setLoading(false);
     }
@@ -39,11 +48,9 @@ const BlogsPage = () => {
     return <div className="text-red-600 text-center">{error}</div>;
   }
 
-
   const indexOfLastArticle = currentPage * articlesPerPage;
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
   const currentArticles = articles.slice(indexOfFirstArticle, indexOfLastArticle);
-
 
   const totalPages = Math.ceil(articles.length / articlesPerPage);
 
@@ -82,7 +89,6 @@ const BlogsPage = () => {
         </div>
       )}
 
-    
       <div className="flex justify-between items-center mt-6">
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}

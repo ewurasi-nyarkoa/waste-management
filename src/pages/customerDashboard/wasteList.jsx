@@ -1,9 +1,7 @@
-// src/components/WasteCollectionList.jsx
-
 import React from 'react';
 import WasteCollection from '../customerDashboard/WasteCollection';
 
-const WasteCollectionList = ({ collections }) => {
+const WasteCollectionList = ({ collections = [] }) => {
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Waste Collection Records</h2>

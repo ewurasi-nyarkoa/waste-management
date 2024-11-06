@@ -25,27 +25,25 @@ const WasteManagementSection = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 mt-[5%] h-[70%]">
+        <Link to="/customerDashboard/pickup" >
           <div className="bg-white rounded-lg shadow-lg overflow-hidden p-6 h-[100%] transition-transform transform hover:-translate-y-2 hover:shadow-2xl duration-300">
             <img src={image6} alt="Waste Collection" className="w-full h-40 object-cover" />
             <h3 className="text-xl font-bold text-green-800 mt-4">Waste Collection</h3>
             <p className="text-gray-700 mt-2">
               Using meticulous collection strategies, we efficiently gather wastes, transport them to designated facilities for sorting and transfer and recycling.
             </p>
-            <a href="#waste-collection" className="text-green-800 font-semibold mt-4 inline-block underline">
-              Discover Recycle 365 »
-            </a>
           </div>
+          </Link>
 
+         <Link to="/customerDashboard/products" >
           <div className="bg-white rounded-lg shadow-lg overflow-hidden p-6 h-[100%] transition-transform transform hover:-translate-y-2 hover:shadow-2xl duration-300">
             <img src={image7} alt="Composting & Recycling" className="w-full h-40 object-cover" />
             <h3 className="text-xl font-bold text-green-800 mt-4">Composting & Recycling</h3>
             <p className="text-gray-700 mt-2">
               Our Integrated Waste Processing and Recycling Plant receives, sorts, processes, and recycles solid waste and produces organic compost for agronomic purposes in Ghana and West Africa.
             </p>
-            <a href="#composting-recycling" className="text-green-800 font-semibold mt-4 inline-block underline">
-              Recycling Simplified »
-            </a>
           </div>
+          </Link>
 
           <Link to="/customerDashboard/blogs" className="block">
       <div className="bg-white rounded-lg shadow-lg overflow-hidden p-6 h-[100%] transition-transform transform hover:-translate-y-2 hover:shadow-2xl duration-300">

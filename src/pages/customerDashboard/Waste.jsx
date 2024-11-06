@@ -2,6 +2,7 @@
 
 import React from 'react';
 import WasteCollectionList from '../customerDashboard/wasteList';
+import DashboardStats from '../recyclePage/StatusTracking';
 
 const WasteSection = () => {
   // Sample data for testing
@@ -23,7 +24,8 @@ const WasteSection = () => {
   ];
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div >
+      <DashboardStats />
       <WasteCollectionList collections={wasteCollections} />
     </div>
   );

@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom'
 
 const CustDushboardLayout = () => {
   return (
-    <div className='bg-gray-100'>
+    <div className='bg-gray-100 h-auto'>
       <CustomerDashboard />
      
     </div>
