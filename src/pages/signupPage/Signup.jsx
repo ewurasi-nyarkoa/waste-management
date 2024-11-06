@@ -4,7 +4,6 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { apiSignup } from '../../services/Auth';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { CiTurnL1 } from 'react-icons/ci';
 
 export default function SignupPage() {
   const [loading, setLoading] = useState(false)
@@ -56,7 +55,7 @@ export default function SignupPage() {
       
     }
   return (
-    <div className="min-h-screen flex flex-col items-center bg-green-300 dark:bg-gray-900 p-6">
+    <div className="min-h-screen flex flex-col items-center bg-black dark:bg-gray-900 p-6">
       
      
       <div className="relative w-full max-w-md h-48 flex items-center justify-center mb-6">
@@ -141,7 +140,7 @@ export default function SignupPage() {
           <p>Already have an account?{' '}</p>
           <Link to="/signin"
            className="text-green-500 hover:underline">
-            Already have an account?{' '}
+        
               Sign in
           
          </Link>

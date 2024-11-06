@@ -5,6 +5,7 @@ import { apiLogin } from '../../services/Auth';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 // import image1 from 'assets/images/signinimg.png';
+import image1 from '../../assets/images/image4.png'
 
 const LoginPage =() => {
   const navigate = useNavigate()
@@ -37,7 +38,7 @@ if(response.status===200){
      
     
       <div className="w-full md:w-1/2 h-full overflow-hidden relative">
-        <img src="src/assets/images/image1.png" alt="Sign In" className="relative w-full h-full object-cover rounded-r-lg" />
+        <img src={image1} alt="Sign In" className="relative w-full h-full object-cover rounded-r-lg" />
 
         <div className="absolute top-1/4 left-1/4 text-white">
           <h1 className="text-3xl font-bold text-center mb-4 text-green border w-12 h-12 rounded-md bg-green-400">W</h1>
