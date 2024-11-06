@@ -5,7 +5,7 @@ import { apiLogin } from '../../services/Auth';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 // import image1 from 'assets/images/signinimg.png';
-import image1 from '../../assets/images/image4.png'
+import image1 from '../../assets/images/image1.png'
 
 const LoginPage =() => {
   const navigate = useNavigate()
@@ -24,7 +24,7 @@ if(response.status===200){
   localStorage.setItem("token", response.data.accessToken);
  
   //get user profile
-    navigate ("/Land")
+    navigate ("/Landing")
  
   //console.log( response.data)
 
