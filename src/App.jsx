@@ -20,7 +20,7 @@ function App() {
  
   const router = createBrowserRouter([
     {
-      path: "/d",
+      path: "/",
       element: <DirectionPage/>
     },
     {
@@ -44,7 +44,7 @@ function App() {
       element: <Login />
     },
     {
-      path: "/",
+      path: "/vendorsignup",
       element: <Signup />
     },
   
