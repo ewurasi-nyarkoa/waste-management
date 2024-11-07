@@ -1,0 +1,58 @@
+import React, { useEffect, useState } from 'react';
+import { apiGetProducts } from '../../services/product';
+import VendorApiGet from "../recyclePage/VendorApi";
+import { Link } from 'react-router-dom';
+
+const VendorView = () => {
+  const [Adverts, setAdverts] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  },[]);
+
+  const fetchData = async () => {
+    try {
+      setAdverts([]); //not the ideal approach 
+      const response = await apiGetProducts();
+      console.log("API Response:", response);
+      const products = response.data || [];
+      setAdverts(products);
+    } catch (error) {
+      console.error("Error fetching products:", error.message);
+    }
+  };
+
+  const handleProductDelete = (deletedId) => {
+    setAdverts(Adverts.filter(advert => advert.id !== deletedId));
+  };
+
+ 
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"> 
+      {Adverts.length > 0 ? (
+        Adverts.map((advert) => (
+          <VendorApiGet
+            key={advert.id} 
+            id={advert.id} 
+            title={advert.title}
+            description={advert.description}
+            category={advert.category}
+            image={advert.image}
+            price={advert.price}
+            onDelete={handleProductDelete}  
+            
+          />
+        ))
+      ) : (
+        <p>No products available</p>
+        
+      )}
+      <Link to="/addProduct" className="bg-green-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
+              Sell here
+            </Link>
+    </div>
+  );
+};  
+
+export default VendorView;

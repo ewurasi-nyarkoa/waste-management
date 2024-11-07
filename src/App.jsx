@@ -13,6 +13,8 @@ import Login from './pages/recyclePage/VendorSignin'
 import Signup from './pages/recyclePage/vendorSignUp'
 
 import WasteSection from './pages/customerDashboard/Waste'
+import ProductForm from './pages/recyclePage/AddProductForm'
+import VendorView from './pages/recyclePage/VendorFetch'
 
 
 
@@ -47,6 +49,10 @@ function App() {
       path: "/vendorsignup",
       element: <Signup />
     },
+    {
+      path: "/addProduct",
+      element: <ProductForm />
+    },
   
      {
       path:"/customerDashboard",
@@ -64,6 +70,10 @@ function App() {
       {
         path: "pickup",
         element: <WasteSection />
+      },
+      {
+        path: "vendorProduct",
+        element: <VendorView />
       },
       ]
     },

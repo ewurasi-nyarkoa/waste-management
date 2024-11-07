@@ -10,50 +10,52 @@ export default function SignupPage() {
 
   const navigate = useNavigate()
   
-    const handleSubmit = async (event) => {
-      event.preventDefault() // prevent the page from reloading
-   
-        setLoading(true)
-        //prepare data to be sent to backend
-        const formData = new FormData (event.target) // takes the data from the form
-        const contactNumber = formData.get("contactNumber")
-         const name = formData.get("name")
-         const email = formData.get("email")
-         const confirmpass = formData.get("confirmpass")
-         const password = formData.get("password")
-
-         console.log(name)
-        //  const role = formData.get("role") //we do not need role for now since only vendors are signing in  or registering
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // prevent the page from reloading
   
-         const payload = {name:name,email:email, password:password,contactNumber:contactNumber, role:"user"}
+    setLoading(true);
+    // prepare data to be sent to backend
+    const formData = new FormData(event.target); // takes the data from the form
+    const contactNumber = formData.get("contactNumber");
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const confirmpass = formData.get("confirmpass");
+    const password = formData.get("password");
   
+    console.log(name);
   
-         //check if pass match
-         if(!name || !email){
-          alert("Please make sure all fields are filled")
-          setLoading(false)
-          
-         }else if(password !== confirmpass){
-          alert("passwords does not match. Try Again!")
-          setLoading(false)
-         }else{
+    // Create the payload for signup
+    const payload = { name, email, password, contactNumber, role: "user" };
   
-          try{
-            const response = await apiSignup(payload)
-            console.log(response.data)
-            setLoading(false)
-            navigate ("/signin")
-          }catch(err){
-            console.log("error: ", err)
-            setLoading(false)
-            alert("An error occurred please try again")
-            return;
-          }      
-        
-         
-         }
-      
+    // Check if passwords match
+    if (!name || !email) {
+      alert("Please make sure all fields are filled");
+      setLoading(false);
+    } else if (password !== confirmpass) {
+      alert("Passwords do not match. Try Again!");
+      setLoading(false);
+    } else {
+      try {
+        // Attempt to signup the user
+        const response = await apiSignup(payload);
+        console.log(response.data);
+  
+        // Assuming the response contains an access token, save it to localStorage
+        if (response.data?.accessToken) {
+          localStorage.setItem("token", response.data.accessToken);
+          localStorage.setItem('userRoles', payload.role);
+        }
+  
+        setLoading(false);
+        navigate("/signin");
+      } catch (err) {
+        console.log("error: ", err);
+        setLoading(false);
+        alert("An error occurred. Please try again.");
+        return;
+      }
     }
+  };
   return (
     <div className="min-h-screen flex flex-col items-center bg-black dark:bg-gray-900 p-6">
       
