@@ -75,7 +75,7 @@ const BlogsPage = () => {
                   href={article.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-3 inline-block text-blue-600 hover:underline"
+                  className="mt-3 inline-block text-green-600 hover:underline"
                 >
                   Read More
                 </a>

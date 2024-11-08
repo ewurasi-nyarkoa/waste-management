@@ -21,7 +21,7 @@ const AboutSection = () => {
           className="rounded-lg shadow-lg w-full lg:w-5/6"
         />
         <div className="absolute top-5 left-5 bg-gray-100 p-4 rounded-lg shadow-md text-center">
-          <h2 className="text-4xl font-bold text-green-700">18+</h2>
+          <h2 className="text-4xl font-bold text-green-700">3+</h2>
           <p className="text-gray-600">Years of Experience</p>
         </div>
       </div>
@@ -37,7 +37,7 @@ const AboutSection = () => {
         </p>
         <p className="mt-6 text-gray-600 dark:text-gray-400">
           The SWK Taka Kipawa App is a proudly Ghanaian-owned platform that combines waste management with an upcycling marketplace. Our mission is to make environmental responsibility accessible and impactful by empowering users to schedule waste pickups, shop eco-friendly products, and participate in sustainability workshops. We are committed to providing an intuitive, eco-conscious solution that supports households and businesses alike in building a greener future. With over{' '}
-          <strong className="text-green-700 dark:text-white">5 million satisfied customers</strong>, we take immense
+          <strong className="text-green-700 dark:text-white">1 hundred satisfied customers</strong>, we take immense
           pride in our commitment to excellence.
         </p>   
         <Link to="/who-we-are">  

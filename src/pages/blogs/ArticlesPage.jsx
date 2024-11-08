@@ -79,7 +79,7 @@ const ArticlePage = () => {
                 href={article.title_link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
+                className="text-green-600 hover:underline"
               >
                 {article.title}
               </a>
@@ -93,7 +93,7 @@ const ArticlePage = () => {
                     href={article.inline_links.versions.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline mr-2"
+                    className="text-green-600 hover:underline mr-2"
                   >
                     {article.inline_links.versions.total}
                   </a>
@@ -103,7 +103,7 @@ const ArticlePage = () => {
                     href={article.inline_links.cited_by.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline mr-2"
+                    className="text-green-600 hover:underline mr-2"
                   >
                     Cited by {article.inline_links.cited_by.total}
                   </a>
@@ -113,7 +113,7 @@ const ArticlePage = () => {
                     href={article.inline_links.related_pages_link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline"
+                    className="text-green-600 hover:underline"
                   >
                     Related Articles
                   </a>

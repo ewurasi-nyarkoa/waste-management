@@ -1,4 +1,6 @@
 import { IoEarthOutline } from "react-icons/io5";
+import React, { useState } from 'react'
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import { apiLogin } from '../../services/Auth';
@@ -9,6 +11,7 @@ import image1 from '../../assets/images/image1.png';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(true);
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -62,11 +65,14 @@ const LoginPage = () => {
             <div className="flex items-center bg-gray-100 rounded-md p-2">
               <AiOutlineLock className="text-gray-500 h-5 w-5 mr-2" />
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 name="password"
                 className="bg-gray-100 w-full focus:outline-none px-2 text-gray-700"
               />
+               <span onClick={() => setShowPassword(!showPassword)} className="cursor-pointer text-gray-500 ml-2">
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
             </div>
             <button
               type="submit"
@@ -89,7 +95,7 @@ const LoginPage = () => {
 
           <p className="mt-4 text-center text-sm">
             Not a user yet? 
-            <Link to="/signup" className="text-green-500">SignUp </Link>
+            <Link to="/signup" className="text-green-500">   SignUp </Link>
           </p>
         </form>
 

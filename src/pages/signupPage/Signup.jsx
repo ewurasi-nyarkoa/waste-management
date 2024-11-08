@@ -1,14 +1,21 @@
 
 import React, { useState } from 'react'
+import { IoMdContact } from "react-icons/io";
+import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { apiSignup } from '../../services/Auth';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import image1 from "../../assets/images/image2.png"
+import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
 
 export default function SignupPage() {
   const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
+
+  const [showPassword, setShowPassword] = useState(true);
+
   
   const handleSubmit = async (event) => {
     event.preventDefault(); // prevent the page from reloading
@@ -57,107 +64,110 @@ export default function SignupPage() {
     }
   };
   return (
-    <div className="min-h-screen flex flex-col items-center bg-black dark:bg-gray-900 p-6">
-      
-     
-      <div className="relative w-full max-w-md h-48 flex items-center justify-center mb-6">
-        <img
-          src="src/assets/images/image2.png" 
-          alt="Background"
-          className="absolute inset-0 w-full h-full object-cover opacity-60"
-        />
-        {/* <h1 className="relative text-3xl font-bold text-green-500">Sign Up</h1> */}
-      </div>
+    <div className="flex min-h-screen relative flex-col md:flex-row">
+    
+    <div className="w-full md:w-1/2 h-full overflow-hidden relative">
+      <img src={image1} alt="Sign Up" className="relative w-full h-full object-cover rounded-r-lg" />
+    </div>
 
-     
-      <div className="w-full max-w-md space-y-4">
-        <h1 className="text-2xl font-bold text-center text-green-500">
-          Waste Management Signup
-        </h1>
-        <p className="text-center text-gray-400 mb-4">
-          Join us in managing waste responsibly.
-        </p>
+ 
+    <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-gray-50 p-8">
+      <h1 className="text-2xl font-bold mb-2">SWKWASTE</h1>
+      <p className="text-lg mb-6">Join us in managing waste responsibly</p>
 
-        <form onSubmit={handleSubmit}
-        className="space-y-6">
-          <div>
-            <label className="block text-gray-400">Full Name</label>
+      <form onSubmit={handleSubmit} className="p-8 rounded-lg w-full max-w-sm">
+        <div className="mb-4">
+          <div className="flex items-center bg-gray-100 rounded-md p-2">
+            
             <input
               type="text"
+              placeholder="Full Name"
               name="name"
+              className="bg-gray-100 w-full focus:outline-none px-2 text-gray-700"
               required
-              className="w-full p-3 mt-1 text-gray-200 bg-gray-800 border border-gray-600 rounded focus:outline-none focus:border-green-500"
             />
           </div>
-          <div>
-            <label className="block text-gray-400">Email Address</label>
+        </div>
+
+        <div className="mb-4">
+          <div className="flex items-center bg-gray-100 rounded-md p-2">
+            <AiOutlineMail className="text-gray-500 h-5 w-5 mr-2" />
             <input
               type="email"
+              placeholder="Email"
               name="email"
+              className="bg-gray-100 w-full focus:outline-none px-2 text-gray-700"
               required
-              className="w-full p-3 mt-1 text-gray-200 bg-gray-800 border border-gray-600 rounded focus:outline-none focus:border-green-500"
             />
           </div>
-          <div className="relative">
-            <label className="block text-gray-400">Password</label>
+        </div>
+
+        <div className="mb-4">
+          <div className="flex items-center bg-gray-100 rounded-md p-2">
+            <AiOutlineLock className="text-gray-500 h-5 w-5 mr-2" />
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
               name="password"
+              className="bg-gray-100 w-full focus:outline-none px-2 text-gray-700"
               required
-              className="w-full p-3 mt-1 text-gray-200 bg-gray-800 border border-gray-600 rounded focus:outline-none focus:border-green-500"
             />
-            <span className="absolute right-4 top-9 cursor-pointer text-gray-500 dark:text-gray-400">
-              <FaEye />
+            <span onClick={() => setShowPassword(!showPassword)} className="cursor-pointer text-gray-500 ml-2">
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
-            <small className="block mt-1 text-xs text-gray-500">
-              Password legnth must be atleast 6 characters
-            </small>
           </div>
-          <div>
-            <label className="block text-gray-400">Confirm Password</label>
+          <small className="block mt-1 text-xs text-gray-500">
+            Password must be at least 6 characters
+          </small>
+        </div>
+
+        <div className="mb-4">
+          <div className="flex items-center bg-gray-100 rounded-md p-2">
+            <AiOutlineLock className="text-gray-500 h-5 w-5 mr-2" />
             <input
               type="password"
+              placeholder="Confirm Password"
               name="confirmpass"
-              className="w-full p-3 mt-1 text-gray-200 bg-gray-800 border border-gray-600 rounded focus:outline-none focus:border-green-500"
+              className="bg-gray-100 w-full focus:outline-none px-2 text-gray-700"
+              required
             />
           </div>
-           <div>
-            <label className="block text-gray-400"> Contact </label>
+        </div>
+
+        <div className="mb-4">
+          <div className="flex items-center bg-gray-100 rounded-md p-2">
+            <IoMdContact className="text-gray-500 h-5 w-5 mr-2" />
             <input
               type="number"
+              placeholder="Contact Number"
               name="contactNumber"
+              className="bg-gray-100 w-full focus:outline-none px-2 text-gray-700"
               required
-              className="w-full p-3 mt-1 text-gray-200 bg-gray-800 border border-gray-600 rounded focus:outline-none focus:border-green-500"
             />
-          </div> 
-          <button
-            type="submit"
-            className="w-full py-3 bg-green-600 text-white font-semibold rounded hover:bg-green-700 transition duration-200"
-          >
-            {loading ? "Loading....":"Signup"}
-          </button>
-        </form>
-
-        <div className="text-center mt-4 text-gray-400">
-          <p>Already have an account?{' '}</p>
-          <Link to="/signin"
-           className="text-green-500 hover:underline">
-        
-              Sign in
-          
-         </Link>
-          <p>
-            By signing up, you agree to our{' '}
-            <a href="/terms" className="text-green-500 hover:underline">
-              Terms of Service
-            </a>{' '}
-            and{' '}
-            <a href="/privacy" className="text-green-500 hover:underline">
-              Privacy Policy
-            </a>.
-          </p>
+          </div>
         </div>
-      </div>
+
+        <button
+          type="submit"
+          className="w-full py-3 bg-green-600 text-white font-semibold rounded hover:bg-green-700 transition duration-200 mt-4"
+        >
+          sign up
+        </button>
+
+        <div className="text-center text-gray-500 mt-4">OR</div>
+
+       
+
+        <p className="mt-4 text-center text-sm">
+          Already have an account? 
+          <Link to="/signin" className="text-green-500 hover:underline ml-1">  Sign In</Link>
+        </p>
+      </form>
+
+      <footer className="text-center text-gray-400 mt-24 text-xs">
+        © SWK Corporate
+      </footer>
     </div>
+  </div>
   )
 }
