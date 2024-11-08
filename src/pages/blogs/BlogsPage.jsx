@@ -8,36 +8,33 @@ const BlogsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 6;
 
-  const fetchGNews = async () => {
+  const fetchSWKNews = async () => {
     try {
-      const response = await axios.get(import.meta.env.VITE_GNEWS_BASE_URL, {
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/news/news`, {
         params: {
-          q: 'green development',
-          lang: 'en',
-          token: import.meta.env.VITE_GNEWS_API_KEY,
+          query: 'recycling', 
+        },
+        headers: {
+          Authorization: `Bearer ${import.meta.env.VITE_GNEWS_API_KEY}`,
         },
       });
-
-      
-      console.log('GNews response:', response.data);
-
-      // Ensure that response.data.articles is an array
-      if (Array.isArray(response.data.articles)) {
-        setArticles(response.data.articles);
+      if (Array.isArray(response.data)) {
+        setArticles(response.data);
       } else {
         setError('Invalid articles data format.');
       }
+  
+     
       setLoading(false);
     } catch (error) {
-      // Log more detailed error information
-      console.error('Error fetching GNews articles:', error.response || error.message || error);
+      console.error('Error fetching SWK news articles:', error.response || error.message || error);
       setError('Failed to fetch news articles.');
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchGNews();
+    fetchSWKNews();
   }, []);
 
   if (loading) {

@@ -13,6 +13,9 @@ export const apiAddProducts = async (formData) => {
     },
   });
 };
+// export const apiGetNews = async () => {
+//   return apiClient.get("/api/news/news");
+// };
 
 // // Get a single product by ID
 // export const apiGetSingleProduct = async (id) => {

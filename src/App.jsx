@@ -15,6 +15,7 @@ import Signup from './pages/recyclePage/vendorSignUp'
 import WasteSection from './pages/customerDashboard/Waste'
 import ProductForm from './pages/recyclePage/AddProductForm'
 import VendorView from './pages/recyclePage/VendorFetch'
+import ArticlePage from './pages/blogs/ArticlesPage'
 
 
 
@@ -63,6 +64,10 @@ function App() {
       path: "blogs",
       element: <BlogsPage />
       },
+      {
+        path: "articles",
+        element: <ArticlePage />
+        },
       {
         path: "products",
         element: <CustomerPage />

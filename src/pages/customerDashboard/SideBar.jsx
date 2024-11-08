@@ -48,6 +48,9 @@ const CustomerDashboard = () => {
             <li className="p-4 hover:bg-gray-700 cursor-pointer">
               <Link to="/customerDashboard/blogs" className="block w-full h-full">Blogs</Link>
             </li>
+            <li className="p-4 hover:bg-gray-700 cursor-pointer">
+              <Link to="/customerDashboard/articles" className="block w-full h-full">Articles</Link>
+            </li>
 
          
             <li className="p-4 hover:bg-red-700 cursor-pointer mt-4">
