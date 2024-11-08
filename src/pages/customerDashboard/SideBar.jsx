@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 
 const CustomerDashboard = () => {
-  const [role, setRole] = useState(localStorage.getItem('userRole') || localStorage.getItem('userRoles') || 'user'); // Get the userRole from localStorage or default to 'user'
+  const [role, setRole] = useState(localStorage.getItem('userRole') || localStorage.getItem('userRoles') || 'user');
   
   useEffect(() => {
-    // Check if the role is stored in userRole
+  
     const storedRole = localStorage.getItem('userRole') || localStorage.getItem('userRoles');
     if (storedRole) {
-      setRole(storedRole); // Update the state with the actual role
+      setRole(storedRole); 
       console.log(storedRole)
     }
   }, []);
@@ -23,10 +23,10 @@ const CustomerDashboard = () => {
         <nav className="mt-6">
           <ul>
             <li className="p-4 hover:bg-gray-700 cursor-pointer">
-              <Link to="/" className="block w-full h-full">Overview</Link>
+              <Link to="/Landing" className="block w-full h-full">Overview</Link>
             </li>
 
-            {/* Conditionally rendered links for users */}
+            
             {role === 'user' && (
               <> 
                 <li className="p-4 hover:bg-gray-700 cursor-pointer">
@@ -38,7 +38,7 @@ const CustomerDashboard = () => {
              </>
             )} 
 
-            {/* Conditionally rendered link for vendors */}
+           
             {role === 'vendor' && (
               <li className="p-4 hover:bg-gray-700 cursor-pointer">
                 <Link to="/customerDashboard/products" className="block w-full h-full">Vendor Product</Link>

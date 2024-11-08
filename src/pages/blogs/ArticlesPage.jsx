@@ -73,7 +73,7 @@ const ArticlePage = () => {
                 className="mb-3 w-full h-48 object-cover rounded-t-lg"
               />
             )}
-            {/* Display title as a clickable link */}
+            
             <h2 className="text-xl font-semibold text-gray-800">
               <a
                 href={article.title_link}
@@ -85,7 +85,7 @@ const ArticlePage = () => {
               </a>
             </h2>
             <p className="text-gray-600 mt-2">{article.snippet}</p>
-            {/* Display additional inline links if available */}
+          
             {article.inline_links && (
               <div className="mt-3 text-sm">
                 {article.inline_links.versions && (

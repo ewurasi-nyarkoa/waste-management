@@ -20,7 +20,7 @@ function CoreValues() {
               </div>
             </div>
             
-            {/* Repeat for other Core Values */}
+           
             <div className="flex items-start">
               <RiFocusLine className="text-green-700 text-3xl mr-4" />
               <div>

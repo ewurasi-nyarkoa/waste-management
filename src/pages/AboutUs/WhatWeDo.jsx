@@ -13,7 +13,7 @@ const AboutUs = () => {
         </h3>
         
         <p className="text-base text-gray-700 mt-6 leading-relaxed">
-          We are a wholly Ghanaian owned company that focuses on delivering total waste management solutions. We provide integrated waste management solutions from waste collection, through haulage, transfer and sorting to recycling and disposal. Zoomlion is a member of the Environmental Services Providers Association (ESPA) of Ghana and a silver member of the International Solid Waste Management Association (ISWMA, USA).
+          We are a wholly Ghanaian owned company that focuses on delivering total waste management solutions. We provide integrated waste management solutions from waste collection, through haulage, transfer and sorting to recycling and disposal.
         </p>
 
         <p className="text-base text-gray-700 mt-4 leading-relaxed">
