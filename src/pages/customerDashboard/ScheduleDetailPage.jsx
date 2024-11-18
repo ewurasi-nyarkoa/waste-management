@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { apiGetSingleScheduledProducts } from '../../services/product';
-import { FaCalendar, FaMapMarkerAlt, FaBox, FaClock, FaUser } from 'react-icons/fa';
+import { apiGetSingleScheduledProducts, apiGetProfile } from '../../services/product';
+import { FaCalendar, FaMapMarkerAlt, FaBox, FaClock, FaUser, FaInfoCircle, FaExclamationCircle } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 
 const ScheduleDetailPage = () => {
   const { id } = useParams();
   const [schedule, setSchedule] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchScheduleDetails = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await apiGetSingleScheduledProducts(id);
-        setSchedule(response.data);
+        const [scheduleResponse, profileResponse] = await Promise.all([
+          apiGetSingleScheduledProducts(id),
+          apiGetProfile()
+        ]);
+        
+        setSchedule(scheduleResponse.data);
+        setUserProfile(profileResponse.data);
       } catch (error) {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: error.message || 'Failed to fetch schedule details',
+          text: error.message || 'Failed to fetch details',
           confirmButtonColor: '#10B981'
         });
       } finally {
@@ -27,7 +33,7 @@ const ScheduleDetailPage = () => {
       }
     };
 
-    fetchScheduleDetails();
+    fetchData();
   }, [id]);
 
   if (loading) {
@@ -74,7 +80,7 @@ const ScheduleDetailPage = () => {
               Pickup Location
             </h2>
             <p className="text-gray-600">
-              {schedule.address}
+              {schedule.location}
             </p>
           </div>
 
@@ -87,11 +93,23 @@ const ScheduleDetailPage = () => {
             <div className="grid md:grid-cols-2 gap-4">
               <div className="bg-gray-50 p-4 rounded-lg">
                 <p className="text-sm text-gray-500">Waste Type</p>
-                <p className="font-medium text-gray-800">{schedule.wasteType}</p>
+                <p className="font-medium text-gray-800">
+                  {schedule?.wasteType || <span className="text-gray-400 italic flex items-center gap-1">
+                    <FaInfoCircle className="text-gray-300" />
+                    Paper
+                  </span>}
+                </p>
               </div>
               <div className="bg-gray-50 p-4 rounded-lg">
                 <p className="text-sm text-gray-500">Quantity</p>
-                <p className="font-medium text-gray-800">{schedule.quantity} kg</p>
+                <p className="font-medium text-gray-800">
+                  {schedule?.quantity ? 
+                    `${schedule.quantity} kg` : 
+                    <span className="px-2 py-1 bg-gray-100 text-gray-500 text-xs rounded-full">
+                      40
+                    </span>
+                  }
+                </p>
               </div>
             </div>
           </div>
@@ -119,13 +137,13 @@ const ScheduleDetailPage = () => {
             </h2>
             <div className="bg-gray-50 p-4 rounded-lg space-y-2">
               <p className="text-gray-600">
-                <span className="font-medium">Name:</span> {schedule.name}
+                <span className="font-medium">Name:</span> {userProfile?.name || 'Not available'}
               </p>
               <p className="text-gray-600">
-                <span className="font-medium">Phone:</span> {schedule.phone}
+                <span className="font-medium">Phone:</span> {userProfile?.contactNumber || 'Not available'}
               </p>
               <p className="text-gray-600">
-                <span className="font-medium">Email:</span> {schedule.email}
+                <span className="font-medium">Email:</span> {userProfile?.email || 'Not available'}
               </p>
             </div>
           </div>
