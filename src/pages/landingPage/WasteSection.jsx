@@ -1,11 +1,11 @@
 import React from 'react';
 import {Link } from 'react-router-dom';
 import image8 from '../../assets/images/image8.png'
-import image7 from '../../assets/images/image7.png'
+import image7 from '../../assets/images/image16.png'
 import image6 from '../../assets/images/image6.png'
 const WasteManagementSection = () => {
   return (
-    <div className="bg-gray-100 py-12">
+    <div className="bg-gray-100 py-32">
       <div className="container mx-auto px-4">
         <div className="flex justify-center">
           <div className="text-center md:text-left mb-10 w-[40%]">
@@ -24,9 +24,9 @@ const WasteManagementSection = () => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 mt-[5%] h-[70%]">
+        <div className="grid md:grid-cols-3 gap-6 mt-[5%] h-[70%] px-10">
         <Link to="/customerDashboard/pickup" >
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden p-6 h-[100%] transition-transform transform hover:-translate-y-2 hover:shadow-2xl duration-300">
+          <div className="bg-white rounded-lg shadow-lg overflow-hidden p-6 h-[100%] transition-transform transform hover:-translate-y-2 hover:shadow-2xl duration-300 w-full">
             <img src={image6} alt="Waste Collection" className="w-full h-40 object-cover" />
             <h3 className="text-xl font-bold text-green-800 mt-4">Waste Collection</h3>
             <p className="text-gray-700 mt-2">
@@ -36,7 +36,7 @@ const WasteManagementSection = () => {
           </Link>
 
          <Link to="/customerDashboard/products" >
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden p-6 h-[100%] transition-transform transform hover:-translate-y-2 hover:shadow-2xl duration-300">
+          <div className="bg-white rounded-lg shadow-lg overflow-hidden p-6 h-[100%] transition-transform transform hover:-translate-y-2 hover:shadow-2xl duration-300 w-full">
             <img src={image7} alt="Composting & Recycling" className="w-full h-40 object-cover" />
             <h3 className="text-xl font-bold text-green-800 mt-4">Composting & Recycling</h3>
             <p className="text-gray-700 mt-2">
@@ -46,7 +46,7 @@ const WasteManagementSection = () => {
           </Link>
 
           <Link to="/customerDashboard/blogs" className="block">
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden p-6 h-[100%] transition-transform transform hover:-translate-y-2 hover:shadow-2xl duration-300">
+      <div className="bg-white rounded-lg shadow-lg overflow-hidden p-6 h-[100%] transition-transform transform hover:-translate-y-2 hover:shadow-2xl duration-300 w-full">
         <img
           src={image8}
           alt="Landfill Management"

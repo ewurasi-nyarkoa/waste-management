@@ -3,7 +3,7 @@ import image9 from '../../assets/images/image9.png'
 
 const TrashCanPlacement = () => {
   return (
-    <section className="bg-white py-10 px-5 text-center mt-[10%]">
+    <section className="bg-white py-32 px-5 text-center">
       {/* <h2 className="text-lg text-green-700 font-semibold uppercase">
         Waste Connections
       </h2> */}

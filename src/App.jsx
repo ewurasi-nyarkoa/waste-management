@@ -16,6 +16,13 @@ import WasteSection from './pages/customerDashboard/Waste'
 import ProductForm from './pages/recyclePage/AddProductForm'
 import VendorView from './pages/recyclePage/VendorFetch'
 import ArticlePage from './pages/blogs/ArticlesPage'
+import WasteSchedulePage from './pages/customerDashboard/DatePicker'
+import WasteEditPage from './pages/customerDashboard/EditDatePicker'
+import AdminDashboard from './pages/adminDashboard/AdminDashboard'
+import AdminSignup from './pages/adminDashboard/AdminSignUp'
+import AdminLogin from './pages/adminDashboard/AdminSignin'
+import ProductDetailPage from './pages/recyclePage/ProductDetail'
+import ScheduleDetailPage from './pages/customerDashboard/ScheduleDetailPage'
 
 
 
@@ -23,7 +30,7 @@ function App() {
  
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: "/s",
       element: <DirectionPage/>
     },
     {
@@ -35,7 +42,7 @@ function App() {
       element: <SignupPage/>
     },
     {
-      path: "/Landing",
+      path: "/",
       element: <LandingLayout />
     },
     {
@@ -50,10 +57,18 @@ function App() {
       path: "/vendorsignup",
       element: <Signup />
     },
-    {
-      path: "/addProduct",
-      element: <ProductForm />
+    {path:"/:id/status",
+      element:<WasteEditPage/>
     },
+    {
+      path: "/Adminsignup",
+      element: <AdminSignup />
+    },
+    {
+      path: "/AdminLogin",
+      element: <AdminLogin />
+    },
+  
   
      {
       path:"/customerDashboard",
@@ -80,6 +95,27 @@ function App() {
         path: "vendorProduct",
         element: <VendorView />
       },
+      {
+        path: "wpickup",
+        element: <WasteSchedulePage />
+      },
+     
+      {
+        path: "addProduct",
+        element: <ProductForm />
+      },
+      {
+         path:"adminview", 
+         element:<AdminDashboard />
+      },
+      {
+        path:"product/:id", 
+        element:<ProductDetailPage/>
+     },
+     {
+      path:"schedule/:id", 
+      element:<ScheduleDetailPage/>
+   }
       ]
     },
 

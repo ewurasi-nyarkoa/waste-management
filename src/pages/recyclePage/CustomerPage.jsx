@@ -1,13 +1,23 @@
 import { useEffect, useState } from 'react'
 import { apiGetProducts } from '../../services/product';
 import ApiGet from './CustomerApiGet';
+import { useNavigate } from 'react-router-dom';
 
 
 const CustomerPage = () => {
     const [products, setProducts] = useState ([]);
 
     useEffect (() =>{
-        fetchData();
+       // Check if the user is logged in
+       const token = localStorage.getItem("token");
+       if (!token) {
+           // Redirect to signin if no token is found
+           navigate("/signin");
+       } else {
+           // If logged in, fetch the products
+           fetchData();
+       }
+        
     }, []);
     const fetchData = async () => {
         try {
@@ -30,11 +40,13 @@ const CustomerPage = () => {
             products.map((product) => (
             //   <Link key={product.id} to={`/single/${advert.id}`}> 
               <ApiGet
-                title={product.title}
-                inventory={product.inventory}
-                createdAt={product.createdAt}
-                image={product.image}
-                updatedAt={product.updatedAt}
+              key={product._id}
+              id={product._id} 
+              description={product.description}
+              image={product.image}
+              inventory={product.inventory}
+              price={product.price}
+              title={product.title}
               />
             // </Link>
             ))

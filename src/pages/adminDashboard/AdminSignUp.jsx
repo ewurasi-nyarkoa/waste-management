@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import { IoMdContact } from "react-icons/io";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
@@ -9,7 +10,8 @@ import image1 from "../../assets/images/image2.png"
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
 import logo from '../../assets/images/SWK_LOGO__5_.png';
 
-export default function SignupPage() {
+
+export default function AdminSignup() {
   const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
@@ -32,11 +34,7 @@ export default function SignupPage() {
     console.log(name);
   
     // Create the payload for signup
-    const payload = { name: formData.get("name"),
-      email: formData.get("email"),
-      password: formData.get("password"),
-      contactNumber: formData.get("contactNumber"),
-      role:"user"};
+    const payload = { name, email, password, contactNumber, role:"admin"};
   
     // Check if passwords match
     if (!name || !email) {
@@ -58,7 +56,7 @@ export default function SignupPage() {
         }
   
         setLoading(false);
-        navigate("/signin");
+        navigate("/AdminLogin");
       } catch (err) {
         console.log("error: ", err.response?.data || err);
         setLoading(false);
@@ -87,6 +85,7 @@ export default function SignupPage() {
     />
       <p className="text-lg mb-6">Join us in managing waste responsibly</p>
 </div>
+
       <form onSubmit={handleSubmit} className="p-8 rounded-lg w-full max-w-sm">
         <div className="mb-4">
           <div className="flex items-center bg-gray-100 rounded-md p-2">

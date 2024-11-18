@@ -28,7 +28,7 @@ const DashboardStats = () => (
       value="6"
       percentage={10}
       icon={<FiTrendingUp size={24} />}
-      color="bg-gray-800"
+      color="bg-green-600"
       textColor="text-white"
       borderColor="border-gray-400"
     />
@@ -46,7 +46,7 @@ const DashboardStats = () => (
       value="30"
       percentage={100}
       icon={<FiTrendingUp size={24} />}
-      color="bg-teal-400"
+      color="bg-green-600"
       textColor="text-gray-900"
       borderColor="border-gray-200"
     />

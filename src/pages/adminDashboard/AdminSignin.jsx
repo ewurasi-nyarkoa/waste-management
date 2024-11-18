@@ -1,9 +1,9 @@
-import image1 from '../../assets/images/image14.png';
+import image1 from '../../assets/images/image17.png';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { apiLogin } from '../../services/Auth';
 
-const Login = () => {
+const AdminLogin = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -34,9 +34,9 @@ const Login = () => {
       // Updated navigation based on role
       setTimeout(() => {
         if (response.data.role === 'admin') {
-          navigate("/admin/dashboard");
+          navigate("/customerDashboard/adminview");
         } else if (response.data.role === 'vendor') {
-          navigate("/customerDashboard/vendorProduct"); // or your vendor route
+          navigate("/vendor/dashboard"); // or your vendor route
         } else {
           navigate("/customerDashboard/pickup");
         }
@@ -78,7 +78,7 @@ const Login = () => {
 
           <p className="text-center mt-4 text-gray-600">
             Don’t have an account? {' '}
-            <Link to="/vendorsignup" className="text-green-500 hover:underline">
+            <Link to="/Adminsignup" className="text-green-500 hover:underline">
               Sign up
             </Link>
           </p>
@@ -92,4 +92,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;

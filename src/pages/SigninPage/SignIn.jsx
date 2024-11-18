@@ -6,12 +6,15 @@ import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import { apiLogin } from '../../services/Auth';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-// import image1 from 'assets/images/signinimg.png';
 import image1 from '../../assets/images/image1.png';
+import logo from '../../assets/images/SWK_LOGO__5_.png';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -20,33 +23,81 @@ const LoginPage = () => {
     const email = formData.get("email");
     const password = formData.get("password");
 
+    // Reset messages before submitting
+    setErrorMessage('');
+    setSuccessMessage('');
+    setLoading(true);
+
     try {
       const response = await apiLogin({ email, password });
-      
-      // Check if login is successful
-      if (response.status === 200) {
-        // Save the token and role in localStorage
-        localStorage.setItem("token", response.data.accessToken);
-        // localStorage.setItem('userRole', 'user');
 
-        // Navigate to the Landing page or wherever you need to redirect
-        navigate("/Landing");
+      if (response.status === 200) {
+        // Store token
+        localStorage.setItem("token", response.data.accessToken);
+        
+        // Store role directly from backend response
+        const userRole = response.data.role;
+        
+        // Clear any existing roles
+        localStorage.removeItem("adminRole");
+        localStorage.removeItem("vendorRole");
+        localStorage.removeItem("userRole");
+        
+        // Set new role based on backend response
+        switch(userRole) {
+          case 'user':
+            localStorage.setItem("userRole", userRole);
+            break;
+          case 'admin':
+            localStorage.setItem("adminRole", userRole);
+            break;
+          case 'vendor':
+            localStorage.setItem("vendorRole", userRole);
+            break;
+          default:
+            break;
+        }
+
+        setSuccessMessage('Login successful! Redirecting...');
+        
+        // Navigate based on backend role
+        setTimeout(() => {
+          if (userRole === 'admin') {
+            navigate("/customerDashboard/adminview");
+          } else if (userRole === 'vendor') {
+            navigate("/customerDashboard/products");
+          } else {
+            navigate("/customerDashboard/pickup");
+          }
+        }, 2000);
       }
     } catch (error) {
-      console.error("Login failed:", error);
-      alert("Login failed. Please try again.");
+      console.error("Login error:", error);
+      setErrorMessage(error.response?.data?.message || 'Login failed');
+    } finally {
+      setLoading(false); 
     }
   };
 
   return (
     <div className="flex min-h-screen relative flex-col md:flex-row">
+
       <div className="w-full md:w-1/2 h-full overflow-hidden relative">
         <img src={image1} alt="Sign In" className="relative w-full h-full object-cover rounded-r-lg" />
       </div>
 
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-gray-50 p-8">
-        <h1 className="text-2xl font-bold mb-2">SWKWASTE</h1>
+      <div className="flex flex-col items-center mb-6">
+    <img 
+      src={logo} 
+      alt="SWKWASTE Logo" 
+      className="h-28 w-auto object-contain "
+      // style={{
+      //   filter: 'drop-shadow(0 0 4px rgba(34, 197, 94, 0.3))'  // Optional: adds subtle green shadow
+      // }}
+    />
         <p className="text-lg mb-6">Login to the Portal</p>
+      </div>
 
         <form onSubmit={handleSubmit} className="p-8 rounded-lg w-full max-w-sm">
           <div className="mb-4">
@@ -70,18 +121,29 @@ const LoginPage = () => {
                 name="password"
                 className="bg-gray-100 w-full focus:outline-none px-2 text-gray-700"
               />
-               <span onClick={() => setShowPassword(!showPassword)} className="cursor-pointer text-gray-500 ml-2">
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </span>
+              <span onClick={() => setShowPassword(!showPassword)} className="cursor-pointer text-gray-500 ml-2">
+                {showPassword ? < FaEye  /> : <FaEyeSlash />}
+              </span>
             </div>
-            <button
-              type="submit"
-              className="w-full py-3 bg-green-600 text-white font-semibold rounded hover:bg-green-700 transition duration-200 mt-4"
-            >
-              Signin
-            </button>
           </div>
-          <div className="absolute bottom-[37rem] right-20 w-8 h-8 rounded-full bg-white"></div>
+
+       
+          {loading && <div className="text-center text-gray-500 mb-4">Loading...</div>}
+
+         
+          {successMessage && <div className="text-center text-green-600 mb-4">{successMessage}</div>}
+
+         
+          {errorMessage && <div className="text-center text-red-600 mb-4">{errorMessage}</div>}
+
+          <button
+            type="submit"
+            className="w-full py-3 bg-green-600 text-white font-semibold rounded hover:bg-green-700 transition duration-200 mt-4"
+            disabled={loading} 
+          >
+            Log in
+          </button>
+
           <div className="text-center text-gray-500 mt-4">OR</div>
 
           <div className="flex justify-between mt-4">
@@ -94,8 +156,9 @@ const LoginPage = () => {
           </div>
 
           <p className="mt-4 text-center text-sm">
-            Not a user yet? 
-            <Link to="/signup" className="text-green-500">   SignUp </Link>
+            Not a user yet?  {' '}
+                   <Link to="/signup" className="text-green-500">      
+                  SignUp</Link>
           </p>
         </form>
 

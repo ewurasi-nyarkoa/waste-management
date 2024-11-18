@@ -2,6 +2,7 @@
                         import { Link, useNavigate } from "react-router-dom";
                         import { apiAddProducts } from "../../services/product";
 
+                        import Swal from "sweetalert2";
                         const ProductForm = () => {
                         const navigate = useNavigate();
 
@@ -17,9 +18,19 @@
                             
                             const response = await apiAddProducts(formData);
                             console.log('Product saved:', response.data);
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Product Added',
+                                text: 'Your product has been added successfully!',
+                              });
                             navigate("/customerDashboard/vendorProduct");
                             } catch (error) {
                             console.error('Error saving Product:', error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: `Failed to save product: ${error.message || 'An unexpected error occurred.'}`,
+                              });
                             }
                         };
 

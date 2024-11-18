@@ -48,9 +48,7 @@ const VendorView = () => {
         <p>No products available</p>
         
       )}
-      <Link to="/addProduct" className="bg-green-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300">
-              Sell here
-            </Link>
+     
     </div>
   );
 };  

@@ -1,46 +1,101 @@
-import React from 'react';
-import { FaCheckCircle, FaClock, FaInfoCircle, FaShareAlt, FaTrash } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
+import { FaUserCircle } from 'react-icons/fa';
+import { FiCalendar, FiFileMinus, FiFileText, FiShare2, FiTrash2, FiUser } from 'react-icons/fi';
+import { MdOutlinePeopleAlt } from 'react-icons/md';
+import { TbRefreshAlert } from 'react-icons/tb';
+import { PiSunLight } from 'react-icons/pi';
+import { RiInformationLine } from 'react-icons/ri';
+import { IoEllipse } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 
-const WasteCollection = ({ collection }) => {
+import { apiGetScheduledProducts } from '../../services/product';
+
+const WasteCollection = () => {
+  const [tickets, setTickets] = useState([]);
+
+  // Fetch data from the backend
+  useEffect(() => {
+    const fetchTickets = async () => {
+      try {
+        const response = await apiGetScheduledProducts();
+        setTickets(response.data);
+      } catch (error) {
+        console.error("Error fetching tickets:", error);
+      }
+    };
+
+    fetchTickets();
+  }, []);
+
+  const handleEditTicket = (id) => {
+ 
+    console.log(`Editing ticket with id: ${id}`);
+  };
+
   return (
-    <div className="overflow-auto bg-white rounded-lg shadow-md p-4 mb-4">
-      <table className="min-w-full bg-white border border-gray-200 rounded-lg">
+    <div className="bg-white rounded-lg shadow p-4 overflow-x-auto">
+      <h3 className="text-lg font-semibold mb-4">Ticket Management</h3>
+      <table className="w-full min-w-[600px] text-left">
         <thead>
-          <tr className="text-left text-gray-700 bg-gray-100 border-b">
-            <th className="py-2 px-4">User ID</th>
-            <th className="py-2 px-4">Pickup Date</th>
-            <th className="py-2 px-4">Location</th>
-            <th className="py-2 px-4">Status</th>
-            <th className="py-2 px-4 text-center">Quick Actions</th>
+          <tr className="border-b">
+            <th className="py-2 flex items-center gap-2">
+              <FiCalendar className="text-green-500" />
+              <span className="text-[#344054]">Date</span>
+            </th>
+            <th className="py-2 flex items-center gap-2">
+              <FiFileMinus className="text-green-500" />
+              <span className="text-[#344054]">Code</span>
+            </th>
+            <th className="py-2 flex items-center gap-2">
+              <MdOutlinePeopleAlt className="text-green-500" />
+              <span className="text-[#344054]">Department</span>
+            </th>
+            <th className="py-2 flex items-center gap-2">
+              <FiUser className="text-green-500" />
+              <span className="text-[#344054]">Assigned</span>
+            </th>
+            <th className="py-2 flex items-center gap-2">
+              <PiSunLight className="text-green-500" />
+              <span className="text-[#344054]">Status</span>
+            </th>
+            <th className="py-2 flex items-center gap-2">
+              <TbRefreshAlert className="text-green-500" />
+              <span className="text-[#344054]">Quick Actions</span>
+            </th>
           </tr>
         </thead>
-        <tbody>
-          <tr className="text-gray-800 border-b">
-            <td className="py-2 px-4">{collection.user}</td>
-            <td className="py-2 px-4">{new Date(collection.pickupDate).toLocaleDateString()}</td>
-            <td className="py-2 px-4">{collection.location}</td>
-            <td className="py-2 px-4">
-              <span
-                className={`inline-flex items-center px-2 py-1 text-sm font-semibold rounded-full ${
-                  collection.status === 'Completed' ? 'bg-green-100 text-green-600' : 'bg-yellow-100 text-yellow-600'
-                }`}
-              >
-                {collection.status === 'Completed' ? (
-                  <FaCheckCircle className="mr-1" />
-                ) : (
-                  <FaClock className="mr-1" />
-                )}
-                {collection.status}
-              </span>
-            </td>
-            <td className="py-2 px-4 text-center">
-              <div className="flex justify-center space-x-2 text-gray-500">
-                <FaInfoCircle className="cursor-pointer hover:text-blue-600" />
-                <FaShareAlt className="cursor-pointer hover:text-blue-600" />
-                <FaTrash className="cursor-pointer hover:text-red-600" />
-              </div>
-            </td>
-          </tr>
+        <tbody className="text-[#475467]">
+          {tickets.map((ticket) => (
+            <tr key={ticket._id} className="border-t hover:bg-gray-50">
+              <td className="py-2">{new Date(ticket.createdAt).toLocaleDateString() || 'N/A'}</td>
+              <td className="py-2">{ticket._id || 'N/A'}</td>
+              <td className="py-2">{ticket.location || 'N/A'}</td>
+              <td className="py-2 flex items-center gap-2">
+                <FaUserCircle className="text-3xl text-[#FFFFFF] w-10 h-10 rounded-full border-[4px]" />
+                {ticket.user || 'Not assigned'}
+              </td>
+              <td className="py-2">
+                <span
+                  className={`flex items-center px-4 gap-2 rounded-full w-[142px] h-8 ${
+                    ticket.status === 'In progress'
+                      ? 'bg-[#FFD70029] text-[#FFD700]'
+                      : 'bg-[#78E0D4] text-[#2C4229]'
+                  }`}
+                >
+                  <IoEllipse />
+                  {ticket.status || 'N/A'}
+                </span>
+              </td>
+              <td className="py-2 flex space-x-2 text-[#101828]">
+                <Link to="/edit" onClick={() => handleEditTicket(ticket._id)}>
+                  <RiInformationLine />
+                </Link>
+                <FiShare2 />
+                <FiFileText />
+                <FiTrash2 />
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
