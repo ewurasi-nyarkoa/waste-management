@@ -35,42 +35,44 @@ const LoginPage = () => {
         // Store token
         localStorage.setItem("token", response.data.accessToken);
         
+        
         // Store role directly from backend response
         const userRole = response.data.role;
+       localStorage.setItem("role", userRole)
         
-        // Clear any existing roles
-        localStorage.removeItem("adminRole");
-        localStorage.removeItem("vendorRole");
-        localStorage.removeItem("userRole");
+        // // Clear any existing roles
+        // localStorage.removeItem("adminRole");
+        // localStorage.removeItem("vendorRole");
+        // localStorage.removeItem("userRole");
         
-        // Set new role based on backend response
-        switch(userRole) {
-          case 'user':
-            localStorage.setItem("userRole", userRole);
-            break;
-          case 'admin':
-            localStorage.setItem("adminRole", userRole);
-            break;
-          case 'vendor':
-            localStorage.setItem("vendorRole", userRole);
-            break;
-          default:
-            break;
-        }
+        // // Set new role based on backend response
+        // switch(userRole) {
+        //   case 'user':
+        //     localStorage.setItem("userRole", userRole);
+        //     break;
+        //   case 'admin':
+        //     localStorage.setItem("adminRole", userRole);
+        //     break;
+        //   case 'vendor':
+        //     localStorage.setItem("vendorRole", userRole);
+        //     break;
+        //   default:
+        //     break;
+        // }
 
         setSuccessMessage('Login successful! Redirecting...');
-        
+        navigate("/customerDashboard/pickup");
         // Navigate based on backend role
-        setTimeout(() => {
-          if (userRole === 'admin') {
-            navigate("/customerDashboard/adminview");
-          } else if (userRole === 'vendor') {
-            navigate("/customerDashboard/products");
-          } else {
-            navigate("/customerDashboard/pickup");
-          }
-        }, 2000);
-      }
+      //   setTimeout(() => {
+      //     if (userRole === 'admin') {
+      //       navigate("/customerDashboard/adminview");
+      //     } else if (userRole === 'vendor') {
+      //       navigate("/customerDashboard/products");
+      //     } else {
+      //       navigate("/customerDashboard/pickup");
+      //     }
+      //   }, 2000);
+       }
     } catch (error) {
       console.error("Login error:", error);
       setErrorMessage(error.response?.data?.message || 'Login failed');

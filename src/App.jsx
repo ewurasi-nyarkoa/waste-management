@@ -23,6 +23,7 @@ import AdminSignup from './pages/adminDashboard/AdminSignUp'
 import AdminLogin from './pages/adminDashboard/AdminSignin'
 import ProductDetailPage from './pages/recyclePage/ProductDetail'
 import ScheduleDetailPage from './pages/customerDashboard/ScheduleDetailPage'
+import EditProductForm from './pages/recyclePage/EditProductForm'
 
 
 
@@ -57,7 +58,7 @@ function App() {
       path: "/vendorsignup",
       element: <Signup />
     },
-    {path:"/:id/status",
+    {path:"schedule/:id",
       element:<WasteEditPage/>
     },
     {
@@ -103,6 +104,10 @@ function App() {
       {
         path: "addProduct",
         element: <ProductForm />
+      },
+      {
+        path: "editProduct/:id",
+        element: <EditProductForm/>
       },
       {
          path:"adminview", 

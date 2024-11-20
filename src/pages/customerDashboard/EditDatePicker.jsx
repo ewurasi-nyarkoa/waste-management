@@ -35,7 +35,7 @@ const WasteEditPage = () => {
       const submitData = {
         ...formData,
         pickupDate: formData.pickupDate.toISOString(),  // Changed from date to pickupDate
-        status: 'updated'  // Include status if needed
+        // status: 'updated'  // Include status if needed
       };
       
       console.log('Submitting data:', submitData); // Debug log

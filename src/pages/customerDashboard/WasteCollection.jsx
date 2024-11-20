@@ -7,11 +7,12 @@ import { PiSunLight } from 'react-icons/pi';
 import { RiInformationLine } from 'react-icons/ri';
 import { IoEllipse } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
-
-import { apiGetScheduledProducts } from '../../services/product';
+import { apiGetScheduledProducts, apiDeleteScheduledTicket } from '../../services/product';
+import Swal from 'sweetalert2';
 
 const WasteCollection = () => {
   const [tickets, setTickets] = useState([]);
+  const [deletingId, setDeletingId] = useState(null);
 
   // Fetch data from the backend
   useEffect(() => {
@@ -30,6 +31,57 @@ const WasteCollection = () => {
   const handleEditTicket = (id) => {
  
     console.log(`Editing ticket with id: ${id}`);
+  };
+
+  const handleDeleteTicket = async (id, e) => {
+    // Prevent default link behavior
+    e.preventDefault();
+    
+    // Show confirmation dialog
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#10B981',
+      cancelButtonColor: '#EF4444',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+      reverseButtons: true
+    });
+
+    if (result.isConfirmed) {
+      setDeletingId(id);
+      try {
+        await apiDeleteScheduledTicket(id);
+        
+        // Update local state
+        setTickets(prevTickets => 
+          prevTickets.filter(ticket => ticket._id !== id)
+        );
+
+        // Show success message
+        Swal.fire({
+          icon: 'success',
+          title: 'Deleted!',
+          text: 'Schedule has been deleted.',
+          confirmButtonColor: '#10B981',
+          timer: 1500
+        });
+
+      } catch (error) {
+        console.error('Delete error:', error);
+        // Show error message
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.message || 'Failed to delete schedule',
+          confirmButtonColor: '#10B981'
+        });
+      } finally {
+        setDeletingId(null);
+      }
+    }
   };
 
   return (
@@ -91,8 +143,16 @@ const WasteCollection = () => {
                   <RiInformationLine />
                 </Link>
                 <FiShare2 />
-                <FiFileText />
-                <FiTrash2 />
+                <Link to={`/schedule/${ticket._id}`}>
+                  <FiFileText />
+                </Link>
+                <FiTrash2 
+                  className={`cursor-pointer hover:text-red-500 w-4 h-4
+                             ${deletingId === ticket._id ? 'opacity-50' : ''}
+                             transition-all duration-200`}
+                  onClick={() => handleDeleteTicket(ticket._id)}
+                  style={{ cursor: deletingId === ticket._id ? 'wait' : 'pointer' }}
+                />
               </td>
             </tr>
           ))}

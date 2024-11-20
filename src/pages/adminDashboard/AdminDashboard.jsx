@@ -6,7 +6,7 @@ import { TbRefreshAlert } from 'react-icons/tb';
 import { PiSunLight } from 'react-icons/pi';
 import { RiInformationLine } from 'react-icons/ri';
 import { IoEllipse } from 'react-icons/io5';
-import { apiGetScheduledProducts, apiEditProduct } from '../../services/product';
+import { apiGetScheduledProducts, apiEditScheduledProduct } from '../../services/product';
 import Swal from 'sweetalert2';
 
 const AdminDashboard = () => {
@@ -39,7 +39,7 @@ const AdminDashboard = () => {
         confirmButtonText: 'Yes, update it!'
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await apiEditProduct(ticketId, { status: newStatus });
+          await apiEditScheduledProduct(ticketId, { status: newStatus });
           // Refresh tickets after update
           const response = await apiGetScheduledProducts();
           setTickets(response.data);

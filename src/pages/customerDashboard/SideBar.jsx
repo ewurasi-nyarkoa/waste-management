@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, Outlet, useLocation } from 'react-router-dom';
+import { Link, useNavigate, Outlet, useLocation, useOutletContext } from 'react-router-dom';
 import { FaHome, FaRecycle, FaTrashAlt, FaBlog, FaFileAlt, FaSignOutAlt } from 'react-icons/fa';
 import { apiGetProfile } from '../../services/product';
 import WasteSchedulePage from './DatePicker';
@@ -7,41 +7,19 @@ import { FaStore } from 'react-icons/fa';
 
 
 
-const CustomerDashboard = () => {
-  const [role, setRole] = useState(() => {
-    if (localStorage.getItem("adminRole")) return "admin";
-    if (localStorage.getItem("vendorRole")) return "vendor";
-    if (localStorage.getItem("userRole")) return "user";
-    return null;
-  });
-  const [profile, setProfile] = useState(null);
+const SideBar= ({profile, role}) => {
+  console.log('Current role:', role);
+
   const navigate = useNavigate();
-  const location = useLocation();
 
-  // Fetch profile whenever role changes
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await apiGetProfile();
-        setProfile(response.data);
-      } catch (error) {
-        console.error('Error fetching profile:', error);
-        // Handle error - maybe redirect to login if unauthorized
-        if (error.response?.status === 401) {
-          navigate('/login');
-        }
-      }
-    };
-
-    fetchProfile();
-  }, [role, location.pathname]); // Re-fetch when role or path changes
 
   const LogOut = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("adminRole");
-    localStorage.removeItem("vendorRole");
-    localStorage.removeItem("userRole");
-    navigate("/")
+    localStorage.removeItem("role");
+
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
    
   }
 
@@ -51,7 +29,7 @@ const CustomerDashboard = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex  bg-gray-100">
       {/* Fixed Sidebar */}
       <div className="fixed left-0 h-screen w-64 bg-green-800 text-white overflow-y-auto scrollbar-hide">
         <div className="p-6 flex items-center gap-4">
@@ -103,13 +81,15 @@ const CustomerDashboard = () => {
             )}
 
             {role === 'admin' && (
-              <li className={`p-4 cursor-pointer flex items-center transition-colors duration-200
-                ${isActiveLink('/adminview') ? 'bg-green-700' : 'hover:bg-green-700'}`}>
-                <FaTrashAlt className="mr-2" />
-                <Link to="/customerDashboard/adminview" className="block w-full h-full">
-                  Ticket Management
-                </Link>
-              </li>
+              <>
+                <li className={`p-4 cursor-pointer flex items-center transition-colors duration-200
+                  ${isActiveLink('/adminview') ? 'bg-green-700' : 'hover:bg-green-700'}`}>
+                  <FaTrashAlt className="mr-2" />
+                  <Link to="/customerDashboard/adminview" className="block w-full h-full">
+                    Ticket Management
+                  </Link>
+                </li>
+              </>
             )}
 
             {role === 'vendor' && (
@@ -204,19 +184,19 @@ const CustomerDashboard = () => {
               </div>
             </div>
           </div>
-          <div className='mb-10'>
+          <div className=''>
             {role === 'user' && <WasteSchedulePage />}
             </div>
         
 
           {/* Outlet for other content */}
-          <div className="bg-white rounded-lg shadow-sm p-6">
+          {/* <div className="bg-white rounded-lg shadow-sm p-6">
             <Outlet context={{ profile, role }} />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
   );
 };
 
-export default CustomerDashboard;
+export default SideBar;

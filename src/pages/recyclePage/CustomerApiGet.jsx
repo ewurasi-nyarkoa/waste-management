@@ -1,11 +1,15 @@
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const ApiGet = ({ id, title, inventory, image, description, price }) => {
   const navigate = useNavigate();
+  console.log('Props received in ApiGet:', { id, title, inventory, image, description, price }); // Debug log
+  const productId = id || 'no-id';
+  
 
-  const handleViewDetails = () => {
-    navigate(`/customerDashboard/product/${id}`);
-  };
+  // const handleViewDetails = () => {
+  //   navigate(`../product/${id}`, { replace: true });
+  // };
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl 
@@ -54,14 +58,15 @@ const ApiGet = ({ id, title, inventory, image, description, price }) => {
         </p>
 
         {/* Action Button */}
-        <button 
-          onClick={handleViewDetails}
-          className="w-full mt-4 px-4 py-2 bg-green-600 text-white rounded-lg
-                   hover:bg-green-700 transition-colors duration-300
-                   focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
-        >
-          View Details
-        </button>
+        <Link 
+        to={`/customerDashboard/product/${id}`}
+        className="block w-full mt-4 px-4 py-2 bg-green-600 text-white rounded-lg
+                 hover:bg-green-700 transition-colors duration-300
+                 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50
+                 text-center" // Added text-center for proper alignment
+      >
+        View Details
+      </Link>
       </div>
     </div>
   );

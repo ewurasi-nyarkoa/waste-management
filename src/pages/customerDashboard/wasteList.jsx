@@ -7,11 +7,13 @@ import { PiSunLight } from 'react-icons/pi';
 import { RiInformationLine } from 'react-icons/ri';
 import { IoEllipse } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2'; 
 
-import { apiGetScheduledProducts } from '../../services/product';
+import { apiGetScheduledProducts,apiDeleteScheduledTicket } from '../../services/product';
 
 const WasteCollectionList = () => {
   const [tickets, setTickets] = useState([]);
+  const [deletingId, setDeletingId] = useState(null);
 
   // Fetch data from the backend
   useEffect(() => {
@@ -30,6 +32,58 @@ const WasteCollectionList = () => {
   const handleEditTicket = (id) => {
     navigate(`/waste/edit/${id}`);
   };
+  const handleDeleteTicket = async (id, e) => {
+    console.log('Delete clicked for ID:', id);
+    // Prevent default link behavior
+    // e.preventDefault();
+    
+    // Show confirmation dialog
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#10B981',
+      cancelButtonColor: '#EF4444',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+      reverseButtons: true
+    });
+
+    if (result.isConfirmed) {
+      setDeletingId(id);
+      try {
+        await apiDeleteScheduledTicket(id);
+        
+        // Update local state
+        setTickets(prevTickets => 
+          prevTickets.filter(ticket => ticket._id !== id)
+        );
+
+        // Show success message
+        Swal.fire({
+          icon: 'success',
+          title: 'Deleted!',
+          text: 'Schedule has been deleted.',
+          confirmButtonColor: '#10B981',
+          timer: 1500
+        });
+
+      } catch (error) {
+        console.error('Delete error:', error);
+        // Show error message
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.message || 'Failed to delete schedule',
+          confirmButtonColor: '#10B981'
+        });
+      } finally {
+        setDeletingId(null);
+      }
+    }
+  };
+
 
 
   return (
@@ -56,12 +110,12 @@ const WasteCollectionList = () => {
       <span className="text-[#344054]">Location</span>
     </span>
   </th>
-  <th className="py-2">
+  {/* <th className="py-2">
     <span className="flex items-center space-x-2">
       <FiUser className="text-green-500" />
       <span className="text-[#344054]">Assigned</span>
     </span>
-  </th>
+  </th> */}
   <th className="py-2">
     <span className="flex items-center space-x-2">
       <PiSunLight className="text-green-500" />
@@ -82,10 +136,10 @@ const WasteCollectionList = () => {
               <td className="py-2">{new Date(ticket.pickupDate).toLocaleDateString() || 'N/A'}</td>
               <td className="py-2">{ticket._id || 'N/A'}</td>
               <td className="py-2">{ticket.location || 'N/A'}</td>
-              <td className="py-2 flex items-center gap-2">
+              {/* <td className="py-2 flex items-center gap-2">
                 <FaUserCircle className="text-3xl text-[#FFFFFF] w-10 h-10 rounded-full border-[4px]" />
                 {ticket.user || 'Not assigned'}
-              </td>
+              </td> */}
               <td className="py-2">
                 <span
                   className={`flex items-center px-4 gap-2 rounded-full w-[142px] h-8 ${
@@ -98,18 +152,24 @@ const WasteCollectionList = () => {
                   {ticket.status || 'N/A'}
                 </span>
               </td>
-              <td className="py-2 flex space-x-2 text-[#101828]">
-                <Link to={`/${ticket._id}/status`}>
+              <td className="py-2 flex space-x-2 text-[#101828] text-center ">
+                <Link to={`/customerDashboard/schedule/${ticket._id}`}>
                   <RiInformationLine />
                 </Link>
-                <FiShare2 />
+                {/* <FiShare2 /> */}
                 <Link 
-                  to={`/customerDashboard/schedule/${ticket._id}`} 
+                  to= {`/schedule/${ticket._id}`}
                   className="hover:text-green-600 transition-colors duration-300"
                 >
                   <FiFileText className="cursor-pointer" />
                 </Link>
-                <FiTrash2 />
+                <FiTrash2 
+                  className={`cursor-pointer hover:text-red-500 w-4 h-4
+                             ${deletingId === ticket._id ? 'opacity-50' : ''}
+                             transition-all duration-200`}
+                  onClick={() => handleDeleteTicket(ticket._id)}
+                  style={{ cursor: deletingId === ticket._id ? 'wait' : 'pointer' }}
+                />
               </td>
             </tr>
           ))}

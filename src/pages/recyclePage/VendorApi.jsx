@@ -1,39 +1,39 @@
 import { Link } from 'react-router-dom';
 import { FaRegEdit, FaTrashAlt, FaEye, FaBox, FaClock } from 'react-icons/fa';
 import Swal from 'sweetalert2';
-// import { apiDeleteProduct } from './services/product';
+import { apiDeleteTicket } from '../../services/product';
 
 const VendorApiGet = ({ id, title, image, description, price }) => {
-  // const handleDelete = async (id) => {
-  //   Swal.fire({
-  //     title: 'Are you sure?',
-  //     text: "You won't be able to revert this!",
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#10B981', // green
-  //     cancelButtonColor: '#EF4444',  // red
-  //     confirmButtonText: 'Yes, delete it!',
-  //     cancelButtonText: 'Cancel'
-  //   }).then(async (result) => {
-  //     if (result.isConfirmed) {
-  //       try {
-  //         const response = await apiDeleteProduct(id);
-  //         Swal.fire(
-  //           'Deleted!',
-  //           'Product has been deleted.',
-  //           'success'
-  //         );
-  //         // You might want to trigger a refresh of the products list here
-  //       } catch (error) {
-  //         Swal.fire(
-  //           'Error!',
-  //           'Failed to delete product.',
-  //           'error'
-  //         );
-  //       }
-  //     }
-  //   });
-  // };
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#10B981', // green
+      cancelButtonColor: '#EF4444',  // red
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await apiDeleteTicket(id);
+          Swal.fire(
+            'Deleted!',
+            'Product has been deleted.',
+            'success'
+          );
+          // You might want to trigger a refresh of the products list here
+        } catch (error) {
+          Swal.fire(
+            'Error!',
+            'Failed to delete product.',
+            'error'
+          );
+        }
+      }
+    });
+  };
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden
@@ -83,7 +83,7 @@ const VendorApiGet = ({ id, title, image, description, price }) => {
         {/* Action Buttons */}
         <div className="flex gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
           <Link 
-            // to={`/editform/${id}`}
+            to={`/customerDashboard/editProduct/${id}`}
             className="flex-1 flex items-center justify-center gap-2 px-4 py-2
                      bg-green-50 dark:bg-green-900/30 
                      text-green-600 dark:text-green-400
@@ -95,7 +95,7 @@ const VendorApiGet = ({ id, title, image, description, price }) => {
           </Link>
 
           <button 
-            // onClick={() => handleDelete(id)}
+            onClick={() => handleDelete(id)}
             className="flex-1 flex items-center justify-center gap-2 px-4 py-2
                      bg-red-50 dark:bg-red-900/30 
                      text-red-600 dark:text-red-400

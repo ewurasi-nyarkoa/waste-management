@@ -31,16 +31,29 @@ export const apiAddSchedule = async (formData) => {
 export const apiGetScheduledProducts = async () => {
   return apiClient.get("/history");
 };
+
+export const apiGetScheduledCounts = async () => {
+  return apiClient.get("/schedules/count/");
+};
+
+
+
 export const apiGetSingleScheduledProducts = async (id) => {
   return apiClient.get(`/schedule/${id}`);
 };
 export const apiGetProfile = async () => {
   return apiClient.get("/users/profile");
 };
-export const apiEditProduct = async (id, formData) => {
-  return apiClient.patch(`/${id}/status`, formData);
+export const apiSendMessage = async (messageData) => {
+  return apiClient.post("/send", messageData);
 };
 
+export const apiEditProduct = async (id, formData) => {
+  return apiClient.patch(`schedules/${id}`, formData);
+};
+export const apiEditScheduledProduct = async (id, formData) => {
+  return apiClient.patch(`/${id}/status`, formData);
+};
 // Get a single product by ID
 export const apiGetSingleProduct = async (id) => {
   try {
@@ -81,6 +94,18 @@ export const apiGetSingleProduct = async (id) => {
       throw new Error('Error setting up request');
     }
   }
+};
+export const apiEditRecycledProduct = async (id, formData) => {
+  return apiClient.patch(`/products/${id}`, formData);
+};
+
+// Delete product
+export const apiDeleteScheduledTicket = async (id) => {
+  return apiClient.delete(`/schedules/${id}`);
+};
+// Delete product
+export const apiDeleteTicket = async (id) => {
+  return apiClient.delete(`/products/${id}`);
 };
 
 

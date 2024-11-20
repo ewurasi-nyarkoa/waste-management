@@ -32,8 +32,18 @@ const ProductDetailPage = () => {
       }
     };
 
-    fetchData();
+    if (id) {
+      fetchData();
+    }
   }, [id]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
+      </div>
+    );
+  }
 
   const handleContactVendor = () => {
     Swal.fire({
@@ -51,7 +61,7 @@ const ProductDetailPage = () => {
             <FaPhone class="text-green-500 text-xl" />
             <div>
               <p class="text-sm text-gray-500">Phone</p>
-              <p class="font-medium">${userProfile?.contact || 'N/A'}</p>
+              <p class="font-medium">${userProfile?.contactNumber || 'N/A'}</p>
             </div>
           </div>
           <div class="flex items-center gap-3">
@@ -96,7 +106,7 @@ const ProductDetailPage = () => {
           <div className="md:w-1/2">
             <div className="relative h-96">
               <img
-                src={product.image}
+                src={`https://savefiles.org/${product.image}?shareable_link=473`}
                 alt={product.title}
                 className="w-full h-full object-cover"
               />

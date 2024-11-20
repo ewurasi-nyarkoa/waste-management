@@ -40,8 +40,8 @@ const CustomerPage = () => {
             products.map((product) => (
             //   <Link key={product.id} to={`/single/${advert.id}`}> 
               <ApiGet
-              key={product._id}
-              id={product._id} 
+              key={product.id}
+              id={product.id} 
               description={product.description}
               image={product.image}
               inventory={product.inventory}

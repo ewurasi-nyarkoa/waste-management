@@ -16,31 +16,32 @@ const AdminLogin = () => {
       const response = await apiLogin({ email, password });
       if (response.status === 200) {
         localStorage.setItem('token', response.data.accessToken);
+        localStorage.setItem("role",response.data.role)
        
        // Updated role handling
-       switch(response.data.role) {
-        case 'vendor':
-          localStorage.setItem("vendorRole", response.data.role);
-          break;
-        case 'admin':
-          localStorage.setItem("adminRole", response.data.role);
-          break;
-        default:
-          localStorage.setItem("userRole", response.data.role);
-      }
+      //  switch(response.data.role) {
+      //   case 'vendor':
+      //     localStorage.setItem("vendorRole", response.data.role);
+      //     break;
+      //   case 'admin':
+      //     localStorage.setItem("adminRole", response.data.role);
+      //     break;
+      //   default:
+      //     localStorage.setItem("userRole", response.data.role);
+      // }
 
       // setSuccessMessage('Login successful! Redirecting...');
-      
+      navigate("/customerDashboard/adminview");
       // Updated navigation based on role
-      setTimeout(() => {
-        if (response.data.role === 'admin') {
-          navigate("/customerDashboard/adminview");
-        } else if (response.data.role === 'vendor') {
-          navigate("/vendor/dashboard"); // or your vendor route
-        } else {
-          navigate("/customerDashboard/pickup");
-        }
-      }, 2000);
+      // setTimeout(() => {
+      //   if (response.data.role === 'admin') {
+      //     navigate("/customerDashboard/adminview");
+      //   } else if (response.data.role === 'vendor') {
+      //     navigate("/vendor/dashboard"); // or your vendor route
+      //   } else {
+      //     navigate("/customerDashboard/pickup");
+      //   }
+      // }, 2000);
     }
     } catch (err) {
       console.error('Login error:', err);
