@@ -31,6 +31,13 @@ export const apiAddSchedule = async (formData) => {
 export const apiGetScheduledProducts = async () => {
   return apiClient.get("/history");
 };
+export const apiGetUsersScheduledProducts = async () => {
+  return apiClient.get("/users/me/schedules");
+};
+export const apiGetVendorsProducts = async () => {
+  return apiClient.get("/users/me/products");
+};
+
 
 export const apiGetScheduledCounts = async () => {
   return apiClient.get("/schedules/count/");

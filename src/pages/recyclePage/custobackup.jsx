@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { apiGetVendorsProducts } from '../../services/product';
+import { apiGetProducts } from '../../services/product';
 import VendorApiGet from "../recyclePage/VendorApi";
 import { Link } from 'react-router-dom';
 
-const VendorView = () => {
+const VendorViewback = () => {
   const [Adverts, setAdverts] = useState([]);
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const VendorView = () => {
   const fetchData = async () => {
     try {
       setAdverts([]); //not the ideal approach 
-      const response = await apiGetVendorsProducts();
+      const response = await apiGetProducts();
       console.log("API Response:", response);
       const products = response.data || [];
       setAdverts(products);
@@ -53,4 +53,4 @@ const VendorView = () => {
   );
 };  
 
-export default VendorView;
+export default VendorViewback;

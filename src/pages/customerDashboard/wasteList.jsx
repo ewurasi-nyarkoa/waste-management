@@ -9,7 +9,7 @@ import { IoEllipse } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'; 
 
-import { apiGetScheduledProducts,apiDeleteScheduledTicket } from '../../services/product';
+import { apiDeleteScheduledTicket, apiGetUsersScheduledProducts } from '../../services/product';
 
 const WasteCollectionList = () => {
   const [tickets, setTickets] = useState([]);
@@ -18,21 +18,42 @@ const WasteCollectionList = () => {
   // Fetch data from the backend
   useEffect(() => {
     const fetchTickets = async () => {
+      console.log("Fetching tickets..."); 
       try {
-        const response = await apiGetScheduledProducts();
-        setTickets(response.data);
+        const response = await apiGetUsersScheduledProducts();
+        // Debug logs
+        console.log("Raw API Response:", response);
+        console.log("Response data type:", typeof response.data);
+        console.log("Response data:", response.data);
+        
+        // Check if response.data exists and is an array
+        if (response.data && Array.isArray(response.data)) {
+          setTickets(response.data);
+        } else {
+          console.error("Invalid data format received:", response.data);
+          setTickets([]); // Set empty array as fallback
+        }
       } catch (error) {
         console.error("Error fetching tickets:", error);
+        if (error.response) {
+          console.error("Error response:", error.response);
+        }
       }
     };
 
     fetchTickets();
-  }, [location]);
+  }, []);
+
+  // Debug log for state updates
+  useEffect(() => {
+    console.log("Tickets state updated:", tickets);
+    console.log("Tickets length:", tickets.length);
+  }, [tickets]);
 
   const handleEditTicket = (id) => {
     navigate(`/waste/edit/${id}`);
   };
-  const handleDeleteTicket = async (id, e) => {
+  const handleDeleteTicket = async (id) => {
     console.log('Delete clicked for ID:', id);
     // Prevent default link behavior
     // e.preventDefault();
@@ -177,6 +198,6 @@ const WasteCollectionList = () => {
       </table>
     </div>
   );
-};
+}
 
 export default WasteCollectionList;

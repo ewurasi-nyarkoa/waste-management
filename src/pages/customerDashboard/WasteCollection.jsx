@@ -7,18 +7,24 @@ import { PiSunLight } from 'react-icons/pi';
 import { RiInformationLine } from 'react-icons/ri';
 import { IoEllipse } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
-import { apiGetScheduledProducts, apiDeleteScheduledTicket } from '../../services/product';
+import { apiGetScheduledProducts, apiDeleteScheduledTicket, apiGetUsersScheduledProducts } from '../../services/product';
 import Swal from 'sweetalert2';
 
 const WasteCollection = () => {
   const [tickets, setTickets] = useState([]);
   const [deletingId, setDeletingId] = useState(null);
 
+  // Add initial console log to verify component mounting
+  console.log("WasteCollection component mounted");
+
   // Fetch data from the backend
   useEffect(() => {
     const fetchTickets = async () => {
+      console.log("Fetching tickets..."); // Log before API call
       try {
-        const response = await apiGetScheduledProducts();
+        const response = await apiGetUsersScheduledProducts();
+        console.log("API Response:", response); // Log entire response
+        console.log("User schedule:", response.data); // Log data
         setTickets(response.data);
       } catch (error) {
         console.error("Error fetching tickets:", error);
@@ -27,6 +33,11 @@ const WasteCollection = () => {
 
     fetchTickets();
   }, []);
+
+  // Add a log to verify state updates
+  useEffect(() => {
+    console.log("Current tickets state:", tickets);
+  }, [tickets]);
 
   const handleEditTicket = (id) => {
  

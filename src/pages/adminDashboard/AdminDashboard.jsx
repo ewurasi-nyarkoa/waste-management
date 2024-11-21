@@ -8,6 +8,7 @@ import { RiInformationLine } from 'react-icons/ri';
 import { IoEllipse } from 'react-icons/io5';
 import { apiGetScheduledProducts, apiEditScheduledProduct } from '../../services/product';
 import Swal from 'sweetalert2';
+import AdminDashboardStats from '../recyclePage/AdminStats';
 
 const AdminDashboard = () => {
   const [tickets, setTickets] = useState([]);
@@ -61,6 +62,8 @@ const AdminDashboard = () => {
   };
 
   return (
+    <>
+    <AdminDashboardStats />
     <div className="bg-white rounded-lg shadow p-4 overflow-x-auto mt-10">
       <h3 className="text-2xl font-semibold mb-4">Admin Dashboard - Ticket Management</h3>
       <table className="w-full min-w-[600px] text-left">
@@ -144,6 +147,7 @@ const AdminDashboard = () => {
         </tbody>
       </table>
     </div>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import { FiTrendingUp, FiCheckCircle, FiPackage } from 'react-icons/fi';
-import { apiGetUsersScheduledProducts } from '../../services/product';
+import { apiGetScheduledProducts, apiGetScheduledCounts } from '../../services/product';
 
 const StatBox = ({ title, value, percentage, icon, color }) => (
   <div className={`${color} rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1`}>
@@ -28,32 +28,27 @@ const StatBox = ({ title, value, percentage, icon, color }) => (
   </div>
 );
 
-const DashboardStats = () => {
+const AdminDashboardStats = () => {
   const [ticketStats, setTicketStats] = useState({
     totalTickets: 0,
     completedTickets: 0,
-    pendingTickets: 0
   });
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await apiGetUsersScheduledProducts();
-        const tickets = response.data || [];
+        const countsResponse = await apiGetScheduledCounts();
+        const historyResponse = await apiGetScheduledProducts();
         
-        // Calculate stats from tickets array
-        const totalTickets = tickets.length;
-        const completedTickets = tickets.filter(ticket => 
-          ticket.status === 'completed'
+        const completedTickets = historyResponse.data.filter(
+          ticket => ticket.status === 'completed'
         ).length;
-        const pendingTickets = tickets.filter(ticket => 
-          ticket.status === 'pending' || ticket.status === 'in progress'
-        ).length;
+        
+        const totalTickets = countsResponse.data?.count || countsResponse.data?.total || 0;
 
         setTicketStats({
-          totalTickets,
-          completedTickets,
-          pendingTickets
+          totalTickets: totalTickets,
+          completedTickets: completedTickets,
         });
       } catch (error) {
         console.error('Error fetching ticket stats:', error);
@@ -93,26 +88,16 @@ const DashboardStats = () => {
         />
       </div>
       
-      {/* Summary section */}
+      {/* Optional: Add a summary section */}
       <div className="mt-8 p-6 bg-white rounded-xl shadow-md">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">Summary</h3>
-        <div className="text-gray-600 space-y-2">
-          <p>
-            Total waste collection tickets: <span className="font-medium text-gray-800">{ticketStats.totalTickets}</span>
-          </p>
-          {/* <p>
-            Completed collections: <span className="font-medium text-gray-800">{ticketStats.completedTickets}</span>
-          </p>
-          <p>
-            Pending/In Progress: <span className="font-medium text-gray-800">{ticketStats.pendingTickets}</span>
-          </p> */}
-          <p className="text-green-600 font-medium">
-            Total points earned: {totalPoints} points
-          </p>
-        </div>
+        <p className="text-gray-600">
+          You have completed {ticketStats.completedTickets} out of {ticketStats.totalTickets} tickets,
+          earning a total of {totalPoints} points.
+        </p>
       </div>
     </div>
   );
 };
 
-export default DashboardStats;
+export default AdminDashboardStats;

@@ -51,7 +51,7 @@ const SideBar= ({profile, role}) => {
             <li className={`p-4 cursor-pointer flex items-center transition-colors duration-200
               ${isActiveLink('/Landing') ? 'bg-green-700' : 'hover:bg-green-700'}`}>
               <FaHome className="mr-2" />
-              <Link to="/Landing" className="block w-full h-full">Overview</Link>
+              <Link to="/" className="block w-full h-full">Overview</Link>
             </li>
 
             {role === 'user' && (
