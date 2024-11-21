@@ -12,7 +12,7 @@ const VendorViewback = () => {
 
   const fetchData = async () => {
     try {
-      setAdverts([]); //not the ideal approach 
+      setAdverts([]); 
       const response = await apiGetProducts();
       console.log("API Response:", response);
       const products = response.data || [];

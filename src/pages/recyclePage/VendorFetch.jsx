@@ -12,7 +12,7 @@ const VendorView = () => {
 
   const fetchData = async () => {
     try {
-      setAdverts([]); //not the ideal approach 
+      setAdverts([]); 
       const response = await apiGetVendorsProducts();
       console.log("API Response:", response);
       const products = response.data || [];

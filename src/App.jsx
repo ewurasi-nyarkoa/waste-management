@@ -24,6 +24,7 @@ import AdminLogin from './pages/adminDashboard/AdminSignin'
 import ProductDetailPage from './pages/recyclePage/ProductDetail'
 import ScheduleDetailPage from './pages/customerDashboard/ScheduleDetailPage'
 import EditProductForm from './pages/recyclePage/EditProductForm'
+import VendorViewback from './pages/recyclePage/custobackup'
 
 
 
@@ -94,7 +95,7 @@ function App() {
       },
       {
         path: "vendorProduct",
-        element: <VendorView />
+        element: <VendorViewback />
       },
       {
         path: "wpickup",

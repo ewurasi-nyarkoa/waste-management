@@ -16,7 +16,7 @@ const EditProductForm = () => {
     image: null
   });
 
-  // Fetch existing product data
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -28,7 +28,7 @@ const EditProductForm = () => {
           price: productData.price,
           category: productData.category,
           inventory: productData.inventory,
-          image: null // Image will be handled separately
+          image: null 
         });
       } catch (error) {
         Swal.fire({
