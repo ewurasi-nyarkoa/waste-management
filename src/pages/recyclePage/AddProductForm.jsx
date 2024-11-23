@@ -104,8 +104,9 @@
                                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-green-500"
                                     >
                                     <option value="">Select a category</option>
-                                    <option value="phones">Bottles</option>
-                                    <option value="laptop">Papers</option>
+                                    <option value="Bottles">Bottles</option>
+                                    <option value="Papers">Papers</option>
+                                    <option value="Organic Fertilizer">Organic Fertilizers</option>
                                     </select>
                                 </div>
                                 <div className="mb-4">

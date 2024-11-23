@@ -15,47 +15,39 @@ const CustDushboardLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Fetch profile whenever role changes
+
   useEffect(() => {
     const fetchProfile = async () => {
-      setIsLoading(true)
+      setIsLoading(true);
       try {
         const response = await apiGetProfile();
         setProfile(response.data);
-        console.log(response.data)
-       
+        console.log(response.data);
       } catch (error) {
+       
         console.error('Error fetching profile:', error);
-        // Handle error - maybe redirect to login if unauthorized
-        if (error.response?.status === 401) {
-          navigate('/login');
-        }
+       
+      } finally {
+        setIsLoading(false);
       }
-      finally {setIsLoading(false)}
     };
-    
-
+  
     fetchProfile();
   }, [role]); 
 
 
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
 
-    // If no token is found, redirect to the signin page
-    if (!token) {
-      navigate('/signin');
-    }
-  }, [navigate]);
   return (
     <>{isloading ? <p>Loading...</p> : <div className='bg-gray-100 min-h-screen'>
       <SideBar profile={profile} role={role} />
    
-      <div className="ml-64 p-8"> 
-        <div className="max-w-7xl ">
-        
-          <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+      <div className="ml-0 lg:ml-64 p-4 sm:p-6 lg:p-8 transition-all duration-300"> 
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-white rounded-none sm:rounded-lg shadow-lg 
+                          p-3 sm:p-6 border-0 sm:border sm:border-gray-200 
+                          min-h-screen sm:min-h-0 mx-[-1rem] sm:mx-0 
+                          mt-[-1rem] sm:mt-0 ">
             <Outlet context={{ profile, role }} />
           </div>
         </div>

@@ -95,7 +95,7 @@ function App() {
       },
       {
         path: "vendorProduct",
-        element: <VendorViewback />
+        element: <VendorView/>
       },
       {
         path: "wpickup",

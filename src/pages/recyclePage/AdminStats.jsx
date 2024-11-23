@@ -79,21 +79,21 @@ const AdminDashboardStats = () => {
           icon={<FiCheckCircle size={24} className="text-white" />}
           color="bg-gradient-to-r from-green-500 to-green-600"
         />
-        <StatBox
+        {/* <StatBox
           title="Total Points"
           value={totalPoints}
           percentage={5}
           icon={<FiTrendingUp size={24} className="text-white" />}
           color="bg-gradient-to-r from-green-500 to-green-600"
-        />
+        /> */}
       </div>
       
       {/* Optional: Add a summary section */}
       <div className="mt-8 p-6 bg-white rounded-xl shadow-md">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">Summary</h3>
         <p className="text-gray-600">
-          You have completed {ticketStats.completedTickets} out of {ticketStats.totalTickets} tickets,
-          earning a total of {totalPoints} points.
+          You have completed {ticketStats.completedTickets} out of {ticketStats.totalTickets} tickets.
+          {/* earning a total of {totalPoints} points. */}
         </p>
       </div>
     </div>

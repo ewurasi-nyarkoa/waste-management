@@ -61,7 +61,7 @@ const ProductDetailPage = () => {
             <FaPhone class="text-green-500 text-xl" />
             <div>
               <p class="text-sm text-gray-500">Phone</p>
-              <p class="font-medium">${userProfile?.contactNumber || 'N/A'}</p>
+              <p class="font-medium">${userProfile?.contactNumber || '0240070628'}</p>
             </div>
           </div>
           <div class="flex items-center gap-3">
