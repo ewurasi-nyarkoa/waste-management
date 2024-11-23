@@ -140,11 +140,11 @@ const SideBar= ({profile, role}) => {
               <>
                 <li
                   className={`p-4 cursor-pointer flex items-center transition-colors duration-200 ${
-                    isActiveLink("/products") ? "bg-green-700" : "hover:bg-green-700"
+                    isActiveLink("/vendorProduct") ? "bg-green-700" : "hover:bg-green-700"
                   }`}
                 >
                   <FaFileAlt className="mr-2" />
-                  <Link to="/customerDashboard/products" className="block w-full h-full">
+                  <Link to="/customerDashboard/vendorProduct" className="block w-full h-full">
                     Vendor Product
                   </Link>
                 </li>
